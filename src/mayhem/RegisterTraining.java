@@ -1,6 +1,8 @@
 package mayhem;
 
+import java.sql.*
 import java.util.Scanner;
+import mayhem.MySQLAccess;
 
 public class RegisterTraining {
 	
@@ -36,12 +38,12 @@ public class RegisterTraining {
 	
 	
 	public void registerWithTemplate () {
-		MYSQLAccess acc = new MYSQLAccess();
+		MySQLAccess acc = new MYSQLAccess();
 		
 		boolean found_template = false;
 		while(found_template = false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
-			rs_workouts = acc.GetWorkouts();
+			ResultSet rs_workouts = acc.getAllWorkouts();
 		    while (rs_workouts.next()) {
 	            String workout = rs_workouts.getString("Trening_ID");
 	            String date = rs_workouts.getString("dato");
@@ -49,7 +51,7 @@ public class RegisterTraining {
 	     
 	        }
 		    
-		    /*System.out.println("Utforsk en spesifikk trening basert på trenings_ID");
+		    /*System.out.println("Utforsk en spesifikk trening basert pï¿½ trenings_ID");
 		    Scanner in = new Scanner(System.in);
 			String id = in.nextLine();
 			rs_workoutOnID = GetWorkoutOnID(toInt(id));
