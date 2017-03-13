@@ -48,28 +48,27 @@ public class RegisterTraining {
 			System.out.println("Her er en liste over dine tidligere treninger:");
 			ResultSet rs_workouts = acc.getAllWorkouts();
 		    while (rs_workouts.next()) {
-	            String workout = rs_workouts.getString("Trening_ID");
+	            int workout = rs_workouts.getInt("Trening_ID");
 	            String date = rs_workouts.getString("dato");
 	            System.out.println(date + ", " + workout);
-	     
 	        }
-		    
-		    /*System.out.println("Utforsk en spesifikk trening basert p� trenings_ID");
+		    System.out.println("Utforsk en spesifikk trening basert paa trenings_ID");
 		    Scanner in = new Scanner(System.in);
-			String id = in.nextLine();
-			rs_workoutOnID = GetWorkoutOnID(toInt(id));
+			int id = in.nextInt();
+			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
 		    while (rs_workoutOnID.next()) {
-	            String workout =rs_workoutOnID.getString("Trening_ID");
-	            String date = rs_workoutOnID.getString("dato");
-	            System.out.println(date + ", " + workout);
+	            id  = rs_workoutOnID.getInt("Trening_ID");
+	            String date 	= rs_workoutOnID.getString("dato");
+	            System.out.println(date + ", " + id);
 				
 		    }
 		    
 		    System.out.println("Vil du bruke denne treningen som mal?(j/n)");
-		    Scanner in = new Scanner(System.in);
-		    String found_template = in.nextLine();*/
+		    //in.close();
+		    Scanner in1 = new Scanner(System.in);
+		    String response = in1.nextLine();
 		    found_template = true;
-		
+		    // Her må logikken legges til angående valg av mal
 		}
 	}
 }
