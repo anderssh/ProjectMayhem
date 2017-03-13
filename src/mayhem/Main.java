@@ -4,33 +4,37 @@ import mayhem.PropertyHandling;
 import mayhem.MySQLAccess;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
+import mayhem.Notes;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-<<<<<<< HEAD
 		boolean done = false;
 		while(!done){
-			System.out.println("Velg handling:");
-			System.out.println("[1] Registrer trening");
-			System.out.println("[2] Se tidligere trening");
-			System.out.println("[3] Statistikk");
-			System.out.println("[4] Notater");
-			System.out.println("[5] Se tidligere trening");
-			System.out.println("[6] Avslutt");
+			System.out.println("Velg handling: \n");
+			System.out.println("[1] \t Registrer trening");
+			System.out.println("[2] \t Se tidligere trening");
+			System.out.println("[3] \t Statistikk ");
+			System.out.println("[4] \t Notater");
+			System.out.println("[5] \t Se tidligere trening ");
+			System.out.println("[6] \t Avslutt");
+			
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
 			switch(i){
 				case 1:
 						System.out.println("jjaja");
-					
+						RegisterTraining regTraining= new RegisterTraining();
+						regTraining.startRegister();
 						break;
 				case 2: 
 						System.out.println("asasas");
 						break;
 				case 3: 
 						break;
-				case 4:
+				case 4:	
+						Notes note = new Notes();
+						note.notesHandler();
 						break;
 				case 5: 
 						break;
@@ -38,37 +42,10 @@ public class Main {
 						break;
 				default: 
 					System.out.println("Skriv inn tall fra 1-6");
-=======
 		
-		System.out.println("Velg handling: \n");
-		System.out.println("[1] \t Registrer trening");
-		System.out.println("[2] \t Se tidligere trening");
-		System.out.println("[3] \t Statistikk ");
-		System.out.println("[4] \t Notater");
-		System.out.println("[5] \t Se tidligere trening ");
 		
-		Scanner in = new Scanner(System.in);
-		int i = in.nextInt();
-		switch(i){
-			case 1:
-					System.out.println("jjaja");
-					RegisterTraining regTraining= new RegisterTraining();
-					regTraining.startRegister();
->>>>>>> 44f473a4262ea84c75bff4d58b87ae19720555af
-					break;
 			}
 		}
-<<<<<<< HEAD
 		System.out.print("Takk for idag");
-	/*	MySQLAccess dao = new MySQLAccess();
-		dao.readDataBase();
-		System.out.println("sdf");
-		PropertyHandling jee = new PropertyHandling();
-<<<<<<< HEAD
-		//jee.CreateDatabaseProperties();
-		jee.LoadDatabaseProperies();
-		jee.CreateDatabaseProperties();*/
-=======
->>>>>>> 44f473a4262ea84c75bff4d58b87ae19720555af
 	}
 }
