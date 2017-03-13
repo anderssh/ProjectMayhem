@@ -11,7 +11,7 @@ public class Main {
 		dao.readDataBase();
 		System.out.println("sdf");
 		PropertyHandling jee = new PropertyHandling();
-		jee.CreateDatabaseProperies();
+		//jee.CreateDatabaseProperties();
 		jee.LoadDatabaseProperies();
 	}
 }

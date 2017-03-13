@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class PropertyHandling {
 	
-	public void CreateDatabaseProperies () {
+	public void CreateDatabaseProperties () {
 		Properties prop = new Properties();
     	OutputStream output = null;
     	try {
