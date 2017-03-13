@@ -32,8 +32,6 @@ public class MySQLAccess {
                         dataSource.setPassword(props.getProperty("dbpassword"));
                         dataSource.setURL(props.getProperty("dbURL"));
                         
-                        System.out.println(props.getProperty("dbURL"));
-                        
                         connect = dataSource.getConnection();
                         
                         // Statements allow to issue SQL queries to the database
