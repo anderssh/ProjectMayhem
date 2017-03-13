@@ -23,8 +23,12 @@ public class Main {
 			int i = in.nextInt();
 			switch(i){
 				case 1:
+<<<<<<< HEAD
 						System.out.println("jjaja");
 						RegisterTraining regTraining= new RegisterTraining();
+=======
+						RegisterTraining regTraining = new RegisterTraining();
+>>>>>>> 5e3d3d755cd6714279adbfe226f665d03815be2d
 						regTraining.startRegister();
 						break;
 				case 2: 
@@ -42,10 +46,16 @@ public class Main {
 						break;
 				default: 
 					System.out.println("Skriv inn tall fra 1-6");
+<<<<<<< HEAD
 		
 		
 			}
 		}
 		System.out.print("Takk for idag");
+=======
+			}		
+		}
+>>>>>>> 5e3d3d755cd6714279adbfe226f665d03815be2d
 	}
 }
+

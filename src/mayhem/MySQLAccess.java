@@ -10,58 +10,104 @@ import mayhem.PropertyHandling;
 @SuppressWarnings("unused")
 public class MySQLAccess {
         private Connection connect = null;
-        private Statement statement = null;
         private PreparedStatement insert_idrett = null;
         private PreparedStatement list_idrett = null;
         private ResultSet resultSet = null;
         private Properties props = null;
-		
-        public void readDataBase() throws Exception {
-                try {
-                		//Load properties
-                		PropertyHandling propHandling = new PropertyHandling();
-                		props = propHandling.LoadDatabaseProperies();
-                	
-                        // This will load the MySQL driver, each DB has its own driver
-                        Class.forName(props.getProperty("dbdriver"));
-                        
-                        // Setup the connection with the DB
-                        MysqlDataSource dataSource = new MysqlDataSource();
-                        
-                        dataSource.setUser(props.getProperty("dbuser"));
-                        dataSource.setPassword(props.getProperty("dbpassword"));
-                        dataSource.setURL(props.getProperty("dbURL"));
-                        
-                        connect = dataSource.getConnection();
-                        
-                        // Statements allow to issue SQL queries to the database
-                        statement = connect.createStatement();
-                        // Result set get the result of the SQL query
-                        resultSet = statement.executeQuery("select * from idrett");
-                        writeResultSet(resultSet);
-
-                        // PreparedStatements can use variables and are more efficient 
-                        insert_idrett = connect.prepareStatement("INSERT INTO  idrett (navn) VALUES (?)");
-                        // IDen auto-oppdaterer seg.
-                        
-                        System.out.println("Nå er det lagt inn noe mer her, så nå blir det mer neste gang");
-                        // Parameters start with 1
-                        insert_idrett.setString(1, "Tennis");
-                        insert_idrett.executeUpdate();
-                        insert_idrett.setString(1, "Tennis");
-                        
-                        list_idrett = connect.prepareStatement("SELECT * FROM idrett");
-                        resultSet = list_idrett.executeQuery();
-                       
-                        writeResultSet(resultSet);
-                        writeMetaData(resultSet);
-
-                } catch (Exception e) {
-                        throw e;
-                } finally {
-                        close();
-                }
-
+        private Statement statement = null;
+        
+        public void makeConnection() throws Exception {
+        	
+        	//Load properties
+    		PropertyHandling propHandling = new PropertyHandling();
+    		props = propHandling.LoadDatabaseProperies();
+    	
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName(props.getProperty("dbdriver"));
+            
+            // Setup the connection with the DB
+            MysqlDataSource dataSource = new MysqlDataSource();
+            
+            dataSource.setUser(props.getProperty("dbuser"));
+            dataSource.setPassword(props.getProperty("dbpassword"));
+            dataSource.setURL(props.getProperty("dbURL"));
+            
+            connect = dataSource.getConnection();	
+        }
+			
+//        public void readDataBase() throws Exception {
+//                try {   
+//                        // PreparedStatements can use variables and are more efficient 
+//                        insert_idrett = connect.prepareStatement("INSERT INTO  idrett (navn) VALUES (?)");
+//                        // IDen auto-oppdaterer seg.
+//                        
+//                        insert_idrett.setString(1, "Tennis");
+//                        insert_idrett.executeUpdate();
+//                       
+//                        writeResultSet(resultSet);
+//                        writeMetaData(resultSet);
+//
+//                } catch (Exception e) {
+//                        throw e;
+//                }
+//        }
+        
+        public ResultSet getAllWorkouts() throws Exception {
+            try {   
+            		String queryString = "SELECT trening_ID, dato FROM trening_ID";
+                    statement = connect.createStatement();
+                    ResultSet workouts = null;
+                    workouts = statement.executeQuery(queryString);
+                    return workouts;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+        public ResultSet getWorkoutOnID(int trening_ID) throws Exception {
+        	try {
+            		String queryString = "SELECT  * FROM trening WHERE trening_ID="+trening_ID;
+					statement = connect.createStatement();
+					
+					ResultSet workout = null;
+					workout = statement.executeQuery(queryString);
+					
+					return workout;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+        public ResultSet getWorkoutsWithNotes() throws Exception {
+        	try {
+            		String queryString = "SELECT trening_ID, dato FROM trening WHERE notat IS NOT NULL";
+					statement = connect.createStatement();
+					
+					ResultSet workoutsWithNotes = null;
+					workoutsWithNotes = statement.executeQuery(queryString);
+					
+					return workoutsWithNotes;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+        public ResultSet getNotesOnWorkoutID(int trening_ID) throws Exception {
+        	try {
+            		String queryString = "SELECT notat, FROM trening WHERE trening_ID="+trening_ID;
+					statement = connect.createStatement();
+					
+					ResultSet workoutNotes = null;
+					workoutNotes = statement.executeQuery(queryString);
+					
+					return workoutNotes;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
         }
 
         private void writeMetaData(ResultSet resultSet) throws SQLException {
@@ -90,7 +136,7 @@ public class MySQLAccess {
                 }
         }
 
-        // You need to close the resultSet
+//         You need to close the resultSet
         private void close() {
                 try {
                         if (resultSet != null) {
