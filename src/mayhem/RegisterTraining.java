@@ -1,6 +1,6 @@
 package mayhem;
 
-import java.sql.*
+import java.sql.*;
 import java.util.Scanner;
 import mayhem.MySQLAccess;
 
@@ -38,7 +38,7 @@ public class RegisterTraining {
 	
 	
 	public void registerWithTemplate () {
-		MySQLAccess acc = new MYSQLAccess();
+		MySQLAccess acc = new MySQLAccess();
 		
 		boolean found_template = false;
 		while(found_template = false){
