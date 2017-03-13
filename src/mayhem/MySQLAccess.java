@@ -43,7 +43,7 @@ public class MySQLAccess {
                         writeResultSet(resultSet);
 
                         // PreparedStatements can use variables and are more efficient 
-                        insert_idrett = connect.prepareStatement("INSERT INTO  prosjekt1.idrett (navn) VALUES (?)");
+                        insert_idrett = connect.prepareStatement("INSERT INTO  idrett (navn) VALUES (?)");
                         // IDen auto-oppdaterer seg.
                         
                         System.out.println("Nå er det lagt inn noe mer her, så nå blir det mer neste gang");
