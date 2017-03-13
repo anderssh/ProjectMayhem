@@ -34,4 +34,37 @@ public class RegisterTraining {
 		
 	}
 	
+	
+	public void registerWithTemplate () {
+		MYSQLAccess acc = new MYSQLAccess();
+		
+		boolean found_template = false;
+		while(found_template = false){
+			System.out.println("Her er en liste over dine tidligere treninger:");
+			rs_workouts = acc.GetWorkouts();
+		    while (rs_workouts.next()) {
+	            String workout = rs_workouts.getString("Trening_ID");
+	            String date = rs_workouts.getString("dato");
+	            System.out.println(date + ", " + workout);
+	     
+	        }
+		    
+		    /*System.out.println("Utforsk en spesifikk trening basert på trenings_ID");
+		    Scanner in = new Scanner(System.in);
+			String id = in.nextLine();
+			rs_workoutOnID = GetWorkoutOnID(toInt(id));
+		    while (rs_workoutOnID.next()) {
+	            String workout =rs_workoutOnID.getString("Trening_ID");
+	            String date = rs_workoutOnID.getString("dato");
+	            System.out.println(date + ", " + workout);
+				
+		    }
+		    
+		    System.out.println("Vil du bruke denne treningen som mal?(j/n)");
+		    Scanner in = new Scanner(System.in);
+		    String found_template = in.nextLine();*/
+		    found_template = true;
+		
+		}
+	}
 }

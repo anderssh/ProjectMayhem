@@ -16,6 +16,10 @@ public class MySQLAccess {
         private ResultSet resultSet = null;
         private Properties props = null;
 		
+        
+        
+        
+        
         public void readDataBase() throws Exception {
                 try {
                 		//Load properties
