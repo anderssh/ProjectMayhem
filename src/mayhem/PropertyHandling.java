@@ -18,7 +18,7 @@ public class PropertyHandling {
 
     		// set the properties value
     		prop.setProperty("dbdriver", "javax.sql.DataSource");
-    		prop.setProperty("dbURL", "jdbc:mysql://localhost:3306/project1?autoReconnect=true&useSSL=false");
+    		prop.setProperty("dbURL", "jdbc:mysql://localhost/prosjekt1?autoReconnect=true&useSSL=false");
     		prop.setProperty("dbuser", "root");
     		prop.setProperty("dbpassword", "root");
 
