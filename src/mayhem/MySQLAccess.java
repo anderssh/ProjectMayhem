@@ -54,8 +54,9 @@ public class MySQLAccess {
         
         public ResultSet getAllWorkouts() throws Exception {
             try {   
-            		String queryString = "SELECT trening_ID, dato FROM trening_ID";
+            		String queryString = "SELECT trening_ID, dato FROM trening";
                     statement = connect.createStatement();
+                    System.out.println("asdfaasdfasdfadfsdf");
                     ResultSet workouts = null;
                     workouts = statement.executeQuery(queryString);
                     return workouts;

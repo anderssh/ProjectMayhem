@@ -6,7 +6,7 @@ import mayhem.MySQLAccess;
 
 public class RegisterTraining {
 	
-	public void startRegister () {
+	public void startRegister () throws Exception {
 	
 	System.out.println("Nå skal du registrere en ny trening");
 	System.out.println("Ønsker du å benytte en mal? [J/N]");
@@ -22,6 +22,7 @@ public class RegisterTraining {
 				
 				System.out.println("JAAAAA");
 				temp = false;
+				registerWithTemplate();
 			}
 			else if(i.toLowerCase().equals("n")) {
 				System.out.println("NEIIII");
@@ -37,11 +38,13 @@ public class RegisterTraining {
 	}
 	
 	
-	public void registerWithTemplate () {
+	public void registerWithTemplate () throws Exception {
+		System.out.println("halllaaaaa");
 		MySQLAccess acc = new MySQLAccess();
+		acc.makeConnection();
 		
 		boolean found_template = false;
-		while(found_template = false){
+		while(found_template == false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
 			ResultSet rs_workouts = acc.getAllWorkouts();
 		    while (rs_workouts.next()) {
