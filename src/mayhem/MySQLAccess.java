@@ -101,6 +101,57 @@ public class MySQLAccess {
             }
         }
         
+        public ResultSet addWorkout(String date, String time, String Duration, int num_exercises, String performace, String Form, int sport_ID, String note) throws Exception {
+        	try {
+        		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?,?)";
+        		
+        		
+        		
+        		ResultSet generatedKey = null;
+			    PreparedStatement statement = connect.prepareStatement(queryString);
+			    statement.setString(1, sport);
+			    statement.executeUpdate(queryString);
+			    generatedKey = statement.getGeneratedKeys();
+			    return generatedKey;
+        } 
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+        public ResultSet getAllSports() throws Exception {
+        	try {
+            		String queryString = "SELECT * FROM idrett";
+					statement = connect.createStatement();
+					
+					ResultSet allSports = null;
+					allSports = statement.executeQuery(queryString);
+					
+					return allSports;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+        public ResultSet addSport(String sport) throws Exception {
+        	try {
+            		String queryString = "INSERT INTO idrett (navn) VALUES ( ? )";
+            		
+            		ResultSet generatedKey = null;
+				    PreparedStatement statement = connect.prepareStatement(queryString);
+				    statement.setString(1, sport);
+				    
+				    statement.executeUpdate(queryString);
+				    generatedKey = statement.getGeneratedKeys();
+				    return generatedKey;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
         public ResultSet getNotesOnWorkoutID(int trening_ID) throws Exception {
         	try {
             		String queryString = "SELECT notat FROM trening WHERE trening_ID=" + trening_ID;
