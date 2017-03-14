@@ -11,8 +11,8 @@ public class Main {
 	
 
 	public static void main(String[] args) throws Exception {
-		PropertyHandling ph = new PropertyHandling();
-		ph.CreateDatabaseProperties();
+		//PropertyHandling ph = new PropertyHandling();
+		//ph.CreateDatabaseProperties();
 		boolean done = false;
 		while(!done){
 			System.out.println("Velg handling: \n");
@@ -27,12 +27,10 @@ public class Main {
 			int i = in.nextInt();
 			switch(i){
 				case 1:
-						//System.out.println("case 1");
 						RegisterTraining regTraining= new RegisterTraining();
 						regTraining.startRegister();
 						break;
 				case 2: 
-						//System.out.println("case 2");
 						break;
 				case 3: 
 						break;

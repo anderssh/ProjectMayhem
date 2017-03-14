@@ -104,19 +104,19 @@ public class MySQLAccess {
         }
         
         public ResultSet addSport(String sport) throws Exception {
-        	try {
-            		String queryString = "INSERT INTO idrett (navn) VALUES ( ? )";
+        	PreparedStatement statement=null;
+        			ResultSet generatedKey = null;
+        			 
+            		String queryString = "INSERT INTO " + "idrett (navn) VALUES ?";
             		
-            		ResultSet generatedKey = null;
-				    PreparedStatement statement = connect.prepareStatement(queryString);
+            		System.out.println("drit");
+				    statement = connect.prepareStatement(queryString);
 				    statement.setString(1, sport);
-				    statement.executeUpdate(queryString);
+				    //System.out.println(queryString);
+				    statement.executeUpdate();
+				    System.out.println("dra");
 				    generatedKey = statement.getGeneratedKeys();
 				    return generatedKey;
-            } 
-            catch (Exception e) {
-                    throw e;
-            }
         }
         
         public ResultSet getWorkoutsWithNotes() throws Exception {

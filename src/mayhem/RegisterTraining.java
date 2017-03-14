@@ -127,12 +127,17 @@ public class RegisterTraining {
 			}
 			ResultSet rs_idrett = null;
 			int sport_type = workout_info.nextInt();
+			String new_sport;
 			if(sport_type == 0){
 				System.out.println("Skriv navn på ny idrett");
-				rs_idrett=acc.addSport(workout_info.nextLine());
-				
+				Scanner in3 = new Scanner(System.in);
+				new_sport = in3.nextLine();
+				System.out.println(new_sport);
+				rs_idrett=acc.addSport(new_sport);
+				System.out.println("hei");
+				sport_id = (int) rs_idrett.getLong(1);
 			}
-			sport_id = (int) rs_idrett.getLong(1);
+			
 		
 			System.out.println("Hvis du vil, legg til et notat.");
 			String note = workout_info.nextLine();
@@ -183,12 +188,12 @@ public class RegisterTraining {
 			
 			
 			//Scanner in = new Scanner(System.in);
-			int i = in.nextInt();
+			/*int i = in.nextInt();
 			rs_exercises = acc.getExerciseOnID(i);
 			while(rs_exercises.next()){
 				String s = rs_exercises.getString("navn");
 				System.out.println("Du har valgt " + s);
-			}
+			}*/
 			
 			
 						
