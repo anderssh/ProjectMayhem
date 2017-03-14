@@ -27,10 +27,23 @@ public class Notes {
 				System.out.println(notes);
 			   }
 			System.out.println("Vil du se flere notater? [j/n]");
-			String s = in.nextLine();
-			if (s.toLowerCase() != "j"){
-				in.close();
-				done = true;
+			Scanner in1 = new Scanner(System.in);
+			//String s = in1.nextLine();
+			
+			boolean invalid = true;
+			while(invalid){
+				String s = in1.nextLine();
+				if (s.toLowerCase().equals("j")){
+					done = false;
+					invalid = false;
+				}
+				else if(s.toLowerCase().equals("n")){
+					done = true;
+					invalid = false;
+				}
+				else{
+					System.out.println("Skriv 'j' eller 'n'");
+					}
 			}
 		}
 	}	
