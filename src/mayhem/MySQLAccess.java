@@ -163,8 +163,9 @@ public class MySQLAccess {
                 }
         }
 
-        public void addResult(ResultSet resultSet, int i, String a) throws SQLException {
-
+        public void addWorkout(ResultSet resultSet, int i, String a) throws SQLException {
+        
+        	
         }
         
         public ResultSet getAllExercises() throws Exception{
