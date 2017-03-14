@@ -200,12 +200,7 @@ public class RegisterTraining {
 			
 			
 			//Scanner in = new Scanner(System.in);
-			int i = in.nextInt();
-			rs_exercises = acc.getExerciseOnID(i);
-			while(rs_exercises.next()){
-				String s = rs_exercises.getString("navn");
-				System.out.println("Du har valgt " + s);
-			}
+
 			
 			
 						

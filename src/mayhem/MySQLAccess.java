@@ -101,24 +101,6 @@ public class MySQLAccess {
             }
         }
         
-        public ResultSet addWorkout(String date, String time, String Duration, int num_exercises, String performace, String Form, int sport_ID, String note) throws Exception {
-        	try {
-        		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?,?)";
-        		
-        		
-        		
-        		ResultSet generatedKey = null;
-			    PreparedStatement statement = connect.prepareStatement(queryString);
-			    statement.setString(1, sport);
-			    statement.executeUpdate(queryString);
-			    generatedKey = statement.getGeneratedKeys();
-			    return generatedKey;
-        } 
-            } 
-            catch (Exception e) {
-                    throw e;
-            }
-        }
         
         public ResultSet getAllSports() throws Exception {
         	try {
