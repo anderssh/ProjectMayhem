@@ -8,8 +8,8 @@ public class RegisterTraining {
 	
 	public void startRegister () throws Exception {
 	
-	System.out.println("N√• skal du registrere en ny trening");
-	System.out.println("√ònsker du √• benytte en mal? [J/N]");
+	System.out.println("NÂ skal du registrere en ny trening");
+	System.out.println("ÿnsker du Â benytte en mal? [J/N]");
 	
 	Scanner in = new Scanner(System.in);
 	
@@ -36,6 +36,10 @@ public class RegisterTraining {
 	public void registerWithoutTemplate () {
 		
 	}
+	public void input_workout(ResultSet template){
+		System.out.println("looooooooool");
+		
+	}
 	
 	
 	public void registerWithTemplate () throws Exception {
@@ -51,7 +55,7 @@ public class RegisterTraining {
 	            String date = rs_workouts.getString("dato");
 	            System.out.println(date + ", " + workout);
 	        }
-		    System.out.println("Utforsk en spesifikk trening basert paa trenings_ID");
+		    System.out.println("Skriv inn trenings_ID for Â utforske en spesifikk trening:");
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
@@ -61,13 +65,31 @@ public class RegisterTraining {
 	            System.out.println(date + ", " + id);
 				
 		    }
-		    
 		    System.out.println("Vil du bruke denne treningen som mal?(j/n)");
-		    //in.close();
 		    Scanner in1 = new Scanner(System.in);
-		    String response = in1.nextLine();
-		    found_template = true;
-		    // Her m√• logikken legges til ang√•ende valg av mal
-		}
-	}
+		    boolean temp = true;
+		    while(temp) {
+				String i = in1.nextLine();
+				System.out.println(i);
+			
+				if (i.toLowerCase().equals("j")) {
+					
+					System.out.println("JAAAAA");
+					temp = false;
+					found_template = true;
+					ResultSet chosen_template;
+					chosen_template = rs_workoutOnID;
+				}
+				else if(i.toLowerCase().equals("n")) {
+					System.out.println("NEIIII");
+					temp = false;
+				}
+				else {
+					System.out.println("Skriv 'j' eller 'n' ");
+				}
+			}
+		    
+		}		
+		
+	}	
 }
