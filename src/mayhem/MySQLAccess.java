@@ -35,7 +35,7 @@ public class MySQLAccess {
             connect = dataSource.getConnection();	
         }
 
-        public ResultSet getAllWorkouts() throws Exception {
+        public ResultSet getAllWorkouts1() throws Exception {
             try {   
             		String queryString = "SELECT trening_ID, dato FROM trening";
                     statement = connect.createStatement();
@@ -48,6 +48,28 @@ public class MySQLAccess {
                     throw e;
             }
         }
+        
+        public ResultSet getAllWorkouts() throws Exception {
+            try {   
+            		String queryString = "SELECT trening.trening_ID, trening.dato, idrett.navn AS idrett, ovelse.navn AS Øvelse FROM trening";
+            		queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID";
+            		queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID";
+            		queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID";
+            		queryString = queryString + "JOIN idrett ON trening.idrett_ID=idrett.idrett_ID;";
+            		
+            		System.out.println(queryString);
+            		
+                    statement = connect.createStatement();
+                   // System.out.println("try-getAllWorkouts");
+                    ResultSet workouts = null;
+                    workouts = statement.executeQuery(queryString);
+                    return workouts;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
         
         public ResultSet getWorkoutOnID(int trening_ID) throws Exception {
         	try {
