@@ -177,10 +177,7 @@ public class RegisterTraining {
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
 			   
-			   jaja.addResult(template,i,result);
-
-			   Scanner in = new Scanner(System.in);
-			   String result = in.nextLine();   
+		
 
 			}
 				
