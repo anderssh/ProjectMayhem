@@ -101,24 +101,17 @@ public class MySQLAccess {
             }
         }
         
-        public ResultSet addWorkout(String date, String time, String Duration, int num_exercises, String performace, String Form, int sport_ID, String note) throws Exception {
+       /* public ResultSet addWorkout(String date, String time, String Duration, int num_exercises, String performace, String Form, int sport_ID, String note) throws Exception {
         	try {
         		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?,?)";
         		
-        		
-        		
-        		ResultSet generatedKey = null;
-			    PreparedStatement statement = connect.prepareStatement(queryString);
-			    statement.setString(1, sport);
-			    statement.executeUpdate(queryString);
-			    generatedKey = statement.getGeneratedKeys();
-			    return generatedKey;
+ 
         } 
             } 
             catch (Exception e) {
                     throw e;
             }
-        }
+        }*/
         
         public ResultSet getAllSports() throws Exception {
         	try {
@@ -136,20 +129,34 @@ public class MySQLAccess {
         }
         
         public ResultSet addSport(String sport) throws Exception {
+
+        	/*PreparedStatement statement=null;
+        			ResultSet generatedKey = null;
+        			 
+            		String queryString = "INSERT INTO " + "idrett (navn) VALUES ?";
+            		
+            		System.out.println("drit");
+				    statement = connect.prepareStatement(queryString);
+				    statement.setString(1, sport);
+				    //System.out.println(queryString);
+				    statement.executeUpdate();
+				    System.out.println("dra");
+*/
         	try {
-            		String queryString = "INSERT INTO idrett (navn) VALUES (undervannsrugby )";
+            		String queryString = "INSERT INTO idrett (navn) VALUES ('undervannsrugby' )";
             		
             		ResultSet generatedKey = null;
 				    statement = connect.createStatement();
 				    //statement.setString(1, sport);
 				    
-				    statement.executeUpdate(queryString);
+				    statement.executeUpdate(queryString,Statement.RETURN_GENERATED_KEYS);
+
 				    generatedKey = statement.getGeneratedKeys();
 				    return generatedKey;
-            } 
-            catch (Exception e) {
-                    throw e;
-            }
+        	}
+        	finally{
+        		System.out.println("hei");
+        	}
         }
         
         public ResultSet getNotesOnWorkoutID(int trening_ID) throws Exception {

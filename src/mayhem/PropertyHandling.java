@@ -18,13 +18,13 @@ public class PropertyHandling {
 
     		// set the properties value
     		prop.setProperty("dbdriver", "javax.sql.DataSource");
-    		prop.setProperty("dbURL", "jdbc:mysql://192.168.38.196/prosjektet?autoReconnect=true&useSSL=false");
+    		prop.setProperty("dbURL", "jdbc:mysql://localhost/mayhem?autoReconnect=true&useSSL=false");
 
-    		prop.setProperty("dbuser", "rall");
+    		/*prop.setProperty("dbuser", "rall");
     		prop.setProperty("dbpassword", "rallstad");
 
     		prop.setProperty("dbuser", "aase");
-    		prop.setProperty("dbpassword", "aase");
+    		prop.setProperty("dbpassword", "aase");*/
 
     		// save properties to project root folder
     		prop.store(output, null);
