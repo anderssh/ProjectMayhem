@@ -34,35 +34,34 @@ public class RegisterTraining {
 		}
 	}
 	public void registerWithoutTemplate () {
-		
+		ResultSet template = null;
+		input_workout(template);	
 	}
-	public void input_workout(ResultSet template){
-		System.out.println("looooooooool");
-		
-	}
-	
 	
 	public void registerWithTemplate () throws Exception {
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
 		
+		ResultSet chosen_template = null;
 		boolean found_template = false;
 		while(found_template == false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
+			System.out.println("----Dato-----TreningsID");
 			ResultSet rs_workouts = acc.getAllWorkouts();
 		    while (rs_workouts.next()) {
 	            int workout = rs_workouts.getInt("Trening_ID");
 	            String date = rs_workouts.getString("dato");
-	            System.out.println(date + ", " + workout);
+	            System.out.println(date + "       " + workout);
 	        }
-		    System.out.println("Skriv inn trenings_ID for å utforske en spesifikk trening:");
+		    System.out.println("Skriv inn en TreningsID for å utforske en spesifikk trening:");
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
+			System.out.println("----Dato-----TreningsID");
 		    while (rs_workoutOnID.next()) {
 	            id  = rs_workoutOnID.getInt("Trening_ID");
 	            String date 	= rs_workoutOnID.getString("dato");
-	            System.out.println(date + ", " + id);
+	            System.out.println(date + "       " + id);
 				
 		    }
 		    System.out.println("Vil du bruke denne treningen som mal?(j/n)");
@@ -77,7 +76,6 @@ public class RegisterTraining {
 					System.out.println("JAAAAA");
 					temp = false;
 					found_template = true;
-					ResultSet chosen_template;
 					chosen_template = rs_workoutOnID;
 				}
 				else if(i.toLowerCase().equals("n")) {
@@ -90,6 +88,16 @@ public class RegisterTraining {
 			}
 		    
 		}		
-		
+		input_workout(chosen_template);
 	}	
+	public void input_workout(ResultSet template){
+		System.out.println("Velkommen! Her kan du skrive inn resultatene dine for dagens trening!");
+		if (template == null){
+			
+			
+		}else{
+			
+			
+		}
+	}
 }
