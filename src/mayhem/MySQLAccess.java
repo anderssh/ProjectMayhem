@@ -81,7 +81,7 @@ public class MySQLAccess {
         
         public ResultSet getNotesOnWorkoutID(int trening_ID) throws Exception {
         	try {
-            		String queryString = "SELECT notat FROM trening WHERE trening_ID="+trening_ID;
+            		String queryString = "SELECT notat FROM trening WHERE trening_ID=" + trening_ID;
 					statement = connect.createStatement();
 					
 					ResultSet workoutNotes = null;
