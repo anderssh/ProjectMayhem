@@ -47,7 +47,7 @@ public class RegisterTraining {
 		
 		while(found_template == false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
-			System.out.println("----Dato-----TreningsID");
+			System.out.println("----TreningsID-----");
 			ResultSet rs_workouts = acc.getAllWorkouts();
 		    while (rs_workouts.next()) {
 	            int workout = rs_workouts.getInt("Trening_ID");
