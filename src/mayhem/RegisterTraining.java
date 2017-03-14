@@ -116,26 +116,55 @@ public class RegisterTraining {
 			String form = workout_info.nextLine();
 			
 			System.out.println("Bedrev du en av disse idretten? [0] for å legge til ny idrett.");
-			
+			ResultSet rs_all_sports = acc.getAllSports();
+			int sport_id;
+			String sport_name;
+			while(rs_all_sports.next()){
+				sport_id = rs_all_sports.getInt("idrett_id");
+				sport_name = rs_all_sports.getString("navn");
+				System.out.println("[" + sport_id + "]" + "\t" + sport_name);
+				
+			}
+			ResultSet rs_idrett = null;
 			int sport_type = workout_info.nextInt();
+			if(sport_type == 0){
+				System.out.println("Skriv navn på ny idrett");
+				rs_idrett=acc.addSport(workout_info.nextLine());
+				
+			}
+			sport_id = (int) rs_idrett.getLong(1);
+		
+			System.out.println("Hvis du vil, legg til et notat.");
+			String note = workout_info.nextLine();
 			
+			//acc.insertintotrening(anders);
 			
 			System.out.println("Trente du ute[0] eller inne[1]?");
 			
 			boolean invalid = true;
+			int location;
+			String weather;
+			int temperature;
+			String ventilation;
+			int crowd;
 			while(invalid){
-				int location = in.nextInt();
+				location = in.nextInt();
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
 					System.out.println("Hvordan var været?");
-					String weather = in1.nextLine();
+					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
-					int temperature = in1.nextInt();
+					temperature = in1.nextInt();
 					
 				}
 				else if(location==1){
+					Scanner in2 = new Scanner(System.in);
 					invalid = false;
+					System.out.println("Hvordan var ventilasjonen?");
+					ventilation = in2.nextLine();
+					System.out.println("Antall tilskuere?");
+					crowd = in2.nextInt();
 				}
 				else{
 					System.out.println("Skriv '0' eller '1'");
