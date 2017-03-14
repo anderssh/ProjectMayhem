@@ -10,8 +10,6 @@ import mayhem.PropertyHandling;
 @SuppressWarnings("unused")
 public class MySQLAccess {
         private Connection connect = null;
-        private PreparedStatement insert_idrett = null;
-        private PreparedStatement list_idrett = null;
         private ResultSet resultSet = null;
         private Properties props = null;   
         private Statement statement = null;
@@ -101,17 +99,31 @@ public class MySQLAccess {
             }
         }
         
-       /* public ResultSet addWorkout(String date, String time, String Duration, int num_exercises, String performace, String Form, int sport_ID, String note) throws Exception {
+        public ResultSet addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note) throws Exception {
         	try {
-        		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?,?)";
-        		
- 
-        } 
-            } 
-            catch (Exception e) {
-                    throw e;
-            }
-        }*/
+	        		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?)";
+				    PreparedStatement prepStat = null;
+				    
+				    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+				    prepStat.setString(1, date);
+				    prepStat.setString(2, time);
+				    prepStat.setString(3, duration);
+				    prepStat.setInt(4, num_exercises);
+				    prepStat.setString(5, performance);
+				    prepStat.setString(6, form);
+				    prepStat.setInt(7, sport_ID);
+				    prepStat.setString(8, note);
+				    
+				    prepStat.executeUpdate();
+				    ResultSet generatedKey = null;
+				    generatedKey = prepStat.getGeneratedKeys();
+				    
+				    return generatedKey;
+	            	}
+	            	finally{
+	            		System.out.println("hei");
+            	}
+        }
         
         public ResultSet getAllSports() throws Exception {
         	try {
@@ -129,29 +141,17 @@ public class MySQLAccess {
         }
         
         public ResultSet addSport(String sport) throws Exception {
-
-        	/*PreparedStatement statement=null;
-        			ResultSet generatedKey = null;
-        			 
-            		String queryString = "INSERT INTO " + "idrett (navn) VALUES ?";
-            		
-            		System.out.println("drit");
-				    statement = connect.prepareStatement(queryString);
-				    statement.setString(1, sport);
-				    //System.out.println(queryString);
-				    statement.executeUpdate();
-				    System.out.println("dra");
-*/
         	try {
-            		String queryString = "INSERT INTO idrett (navn) VALUES ('undervannsrugby' )";
-            		
-            		ResultSet generatedKey = null;
-				    statement = connect.createStatement();
-				    //statement.setString(1, sport);
+				    PreparedStatement prepStat = null;
+				    String queryString = "INSERT INTO idrett (navn) VALUES (?)";
 				    
-				    statement.executeUpdate(queryString,Statement.RETURN_GENERATED_KEYS);
-
-				    generatedKey = statement.getGeneratedKeys();
+				    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+				    prepStat.setString(1, sport);
+				    
+				    prepStat.executeUpdate();
+				    ResultSet generatedKey = null;
+				    generatedKey = prepStat.getGeneratedKeys();
+				    
 				    return generatedKey;
         	}
         	finally{

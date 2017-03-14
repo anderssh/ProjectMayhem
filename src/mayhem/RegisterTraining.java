@@ -8,8 +8,8 @@ public class RegisterTraining {
 	
 	public void startRegister () throws Exception {
 	
-	System.out.println("Nå skal du registrere en ny trening");
-	System.out.println("Ønsker du å benytte en mal? [J/N]");
+	System.out.println("Nï¿½ skal du registrere en ny trening");
+	System.out.println("ï¿½nsker du ï¿½ benytte en mal? [J/N]");
 	
 	Scanner in = new Scanner(System.in);
 	
@@ -25,8 +25,8 @@ public class RegisterTraining {
 				registerWithTemplate();
 			}
 			else if(i.toLowerCase().equals("n")) {
-				System.out.println("nei in while - RegTraining");
 				invalid = false;
+				registerWithoutTemplate();
 			}
 			else {
 				System.out.println("Skriv 'j' eller 'n' ");
@@ -67,7 +67,7 @@ public class RegisterTraining {
 	            idprev = id;
 	        }
 		    System.out.println("");
-		    System.out.println("Skriv inn en TreningsID for å utforske en spesifikk trening:");
+		    System.out.println("Skriv inn en TreningsID for ï¿½ utforske en spesifikk trening:");
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
@@ -129,38 +129,40 @@ public class RegisterTraining {
 			System.out.println("Hvordan var din prestasjon? [1-10]");
 			String performance = workout_info.nextLine();
 			
-			System.out.println("Hvordan følte du deg? [1-10]");
+			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
 			String form = workout_info.nextLine();
 			
-			System.out.println("Bedrev du en av disse idretten? [0] for å legge til ny idrett.");
+			System.out.println("Bedrev du en av disse idretten? [0] for ï¿½ legge til ny idrett.");
 			ResultSet rs_all_sports = acc.getAllSports();
-			int sport_id;
+			int sport_ID = 0;
 			String sport_name;
 			while(rs_all_sports.next()){
-				sport_id = rs_all_sports.getInt("idrett_id");
+				sport_ID = rs_all_sports.getInt("idrett_id");
 				sport_name = rs_all_sports.getString("navn");
-				System.out.println("[" + sport_id + "]" + "\t" + sport_name);
+				System.out.println("[" + sport_ID + "]" + "\t" + sport_name);
 				
 			}
 			ResultSet rs_idrett = null;
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn på ny idrett");
+				System.out.println("Skriv navn pï¿½ ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
 				rs_idrett=acc.addSport(new_sport);
-				System.out.println("jeg liker å spise bæsj");
+				System.out.println("jeg liker ï¿½ spise bï¿½sj");
 				rs_idrett.next();
-				sport_id = (int) rs_idrett.getLong(1);
+				sport_ID = (int) rs_idrett.getLong(1);
 			}
-			
-		
+			else if(sport_type != 0){
+				sport_ID = sport_type;
+			}
 			System.out.println("Hvis du vil, legg til et notat.");
-			String note = workout_info.nextLine();
+			Scanner in4 = new Scanner(System.in);
+			String note = in4.nextLine();
 			
-			//acc.insertintotrening(anders);
+			acc.addWorkout(date, time, duration, 1, performance, form, sport_ID, note);
 			
 			System.out.println("Trente du ute[0] eller inne[1]?");
 			
@@ -175,7 +177,7 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var været?");
+					System.out.println("Hvordan var vï¿½ret?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
@@ -196,7 +198,7 @@ public class RegisterTraining {
 			
 			
 			
-			System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til ny øvelse.\n");
+			System.out.println("Her er alle ï¿½velsene du kan velge i. [0] for ï¿½ legge til ny ï¿½velse.\n");
 			rs_exercises = acc.getAllExercises();
 			while(rs_exercises.next()){
 				int exercise_id = rs_exercises.getInt("ovelse_id");
@@ -224,7 +226,7 @@ public class RegisterTraining {
 
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
-			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
+			   System.out.println(" Skriv inn fï¿½lgende:" + columnName[i-1]);
 
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
