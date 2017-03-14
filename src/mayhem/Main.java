@@ -28,9 +28,7 @@ public class Main {
 			switch(i){
 				case 1:
 						//System.out.println("case 1");
-						
 						RegisterTraining regTraining= new RegisterTraining();
-						
 						regTraining.startRegister();
 						break;
 				case 2: 
