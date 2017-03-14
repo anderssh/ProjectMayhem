@@ -100,7 +100,6 @@ public class MySQLAccess {
         }
         
         public ResultSet addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note) throws Exception {
-        	try {
 	        		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?)";
 				    PreparedStatement prepStat = null;
 				    
@@ -118,11 +117,7 @@ public class MySQLAccess {
 				    ResultSet generatedKey = null;
 				    generatedKey = prepStat.getGeneratedKeys();
 				    
-				    return generatedKey;
-	            	}
-	            	finally{
-	            		System.out.println("hei");
-            	}
+				    return generatedKey;	            
         }
         
         public ResultSet getAllSports() throws Exception {
@@ -141,22 +136,17 @@ public class MySQLAccess {
         }
         
         public ResultSet addSport(String sport) throws Exception {
-        	try {
-				    PreparedStatement prepStat = null;
-				    String queryString = "INSERT INTO idrett (navn) VALUES (?)";
+			PreparedStatement prepStat = null;
+			String queryString = "INSERT INTO idrett (navn) VALUES (?)";
 				    
-				    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
-				    prepStat.setString(1, sport);
+			prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+			prepStat.setString(1, sport);
 				    
-				    prepStat.executeUpdate();
-				    ResultSet generatedKey = null;
-				    generatedKey = prepStat.getGeneratedKeys();
+			prepStat.executeUpdate();
+			ResultSet generatedKey = null;
+		    generatedKey = prepStat.getGeneratedKeys();
 				    
-				    return generatedKey;
-        	}
-        	finally{
-        		System.out.println("hei");
-        	}
+			return generatedKey;        	
         }
         
         public ResultSet getNotesOnWorkoutID(int trening_ID) throws Exception {
@@ -225,7 +215,7 @@ public class MySQLAccess {
         }
         
         public ResultSet getAllExercises() throws Exception{
-        	String queryString = "SELECT DISTINCT navn FROM ovelse";
+        	String queryString = "SELECT * FROM ovelse";
         	statement = connect.createStatement();                
                 ResultSet exercises = null;
                 exercises = statement.executeQuery(queryString);

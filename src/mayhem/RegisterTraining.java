@@ -129,10 +129,10 @@ public class RegisterTraining {
 			System.out.println("Hvordan var din prestasjon? [1-10]");
 			String performance = workout_info.nextLine();
 			
-			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
+			System.out.println("Hvordan følte du deg? [1-10]");
 			String form = workout_info.nextLine();
 			
-			System.out.println("Bedrev du en av disse idretten? [0] for ï¿½ legge til ny idrett.");
+			System.out.println("Bedrev du en av disse idretten? [0] for å legge til ny idrett.");
 			ResultSet rs_all_sports = acc.getAllSports();
 			int sport_ID = 0;
 			String sport_name;
@@ -146,12 +146,11 @@ public class RegisterTraining {
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn pï¿½ ny idrett");
+				System.out.println("Skriv navn på ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
 				rs_idrett=acc.addSport(new_sport);
-				System.out.println("jeg liker ï¿½ spise bï¿½sj");
 				rs_idrett.next();
 				sport_ID = (int) rs_idrett.getLong(1);
 			}
@@ -177,7 +176,7 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var vï¿½ret?");
+					System.out.println("Hvordan var været?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
@@ -198,26 +197,22 @@ public class RegisterTraining {
 			
 			
 			
-			System.out.println("Her er alle ï¿½velsene du kan velge i. [0] for ï¿½ legge til ny ï¿½velse.\n");
+			System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til ny øvelse.\n");
 			rs_exercises = acc.getAllExercises();
 			while(rs_exercises.next()){
-				int exercise_id = rs_exercises.getInt("ovelse_id");
+				int exercise_id = rs_exercises.getInt("ovelse_ID");
 				String exercise_name = rs_exercises.getString("navn");
 				System.out.println("[" + exercise_id + "]" + "\t" + exercise_name);
 			}
 			
 			
-			//Scanner in = new Scanner(System.in);
-<<<<<<< HEAD
-
-=======
-			/*int i = in.nextInt();
+			/*Scanner in = new Scanner(System.in);
+			int i = in.nextInt();
 			rs_exercises = acc.getExerciseOnID(i);
 			while(rs_exercises.next()){
 				String s = rs_exercises.getString("navn");
 				System.out.println("Du har valgt " + s);
 			}*/
->>>>>>> 40d747d0bda3860a17723435e02c1d7af869b883
 			
 			
 						
@@ -230,17 +225,12 @@ public class RegisterTraining {
 
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
-			   System.out.println(" Skriv inn fï¿½lgende:" + columnName[i-1]);
+			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
 
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
-			   
-		
-
 			}
-				
 		}
-			
 	}
 	
 }
