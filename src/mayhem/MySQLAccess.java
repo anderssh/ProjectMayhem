@@ -140,7 +140,7 @@ public class MySQLAccess {
             		String queryString = "INSERT INTO idrett (navn) VALUES (undervannsrugby )";
             		
             		ResultSet generatedKey = null;
-				    PreparedStatement statement = connect.prepareStatement(queryString);
+				    statement = connect.createStatement();
 				    //statement.setString(1, sport);
 				    
 				    statement.executeUpdate(queryString);
