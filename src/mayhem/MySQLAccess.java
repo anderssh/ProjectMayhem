@@ -51,22 +51,13 @@ public class MySQLAccess {
         
         public ResultSet getAllWorkouts() throws Exception {
             try {   
-<<<<<<< HEAD
-            		String queryString = "SELECT trening.trening_ID, trening.dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening";
-            		queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID";
-            		queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID";
-            		queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID";
-=======
-            	
             	// Returns result from asking for the workout ID, date, sport and excercises for all workouts.
             		String queryString = "SELECT trening.trening_ID, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
             		queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
             		queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
             		queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
->>>>>>> 70cc6bf4488bc2d20e6b76859301cede6e0fa8ac
             		queryString = queryString + "JOIN idrett ON trening.idrett_ID=idrett.idrett_ID;";
             		
-            		System.out.println(queryString);
             		
                     statement = connect.createStatement();
                    // System.out.println("try-getAllWorkouts");
