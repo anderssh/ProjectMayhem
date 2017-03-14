@@ -139,4 +139,16 @@ public class MySQLAccess {
                 }
         }
 
+        public void addResult(ResultSet resultSet, int i, String a) throws SQLException {
+
+        }
+        
+        public ResultSet getAllExercises() throws Exception{
+        	String queryString = "SELECT DISTINCT navn FROM ovelse";
+        	statement = connect.createStatement();                
+                ResultSet exercises = null;
+                exercises = statement.executeQuery(queryString);
+                return exercises;
+        }
+
 }

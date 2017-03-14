@@ -33,7 +33,7 @@ public class RegisterTraining {
 			}
 		}
 	}
-	public void registerWithoutTemplate () {
+	public void registerWithoutTemplate () throws SQLException {
 		ResultSet template = null;
 		input_workout(template);	
 	}
@@ -44,6 +44,7 @@ public class RegisterTraining {
 		
 		ResultSet chosen_template = null;
 		boolean found_template = false;
+		
 		while(found_template == false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
 			System.out.println("----Dato-----TreningsID");
@@ -90,14 +91,28 @@ public class RegisterTraining {
 		}		
 		input_workout(chosen_template);
 	}	
-	public void input_workout(ResultSet template){
+	public void input_workout(ResultSet template) throws SQLException{
 		System.out.println("Velkommen! Her kan du skrive inn resultatene dine for dagens trening!");
 		if (template == null){
 			
 			
 		}else{
-			
-			
+			ResultSetMetaData metaData = template.getMetaData();
+			MySQLAccess jaja = new MySQLAccess();
+			int count = metaData.getColumnCount(); //number of column
+			String columnName[] = new String[count];
+
+			for (int i = 1; i <= count; i++){
+			   columnName[i-1] = metaData.getColumnLabel(i);
+			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
+			   Scanner in = new Scanner(System.in);
+			   String result = in.nextLine();
+			   
+			   jaja.addResult(template,i,result);
+			}
+				
 		}
+			
 	}
+	
 }
