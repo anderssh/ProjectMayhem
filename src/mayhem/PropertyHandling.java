@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class PropertyHandling {
 	
-	public void CreateDatabaseProperties () {
+	public void CreateDatabaseProperties() {
 		Properties prop = new Properties();
     	OutputStream output = null;
     	try {
@@ -18,9 +18,9 @@ public class PropertyHandling {
 
     		// set the properties value
     		prop.setProperty("dbdriver", "javax.sql.DataSource");
-    		prop.setProperty("dbURL", "jdbc:mysql://localhost/prosjekt1?autoReconnect=true&useSSL=false");
-    		prop.setProperty("dbuser", "root");
-    		prop.setProperty("dbpassword", "root");
+    		prop.setProperty("dbURL", "jdbc:mysql://192.168.38.196/project2?autoReconnect=true&useSSL=false");
+    		prop.setProperty("dbuser", "rall");
+    		prop.setProperty("dbpassword", "rallstad");
 
     		// save properties to project root folder
     		prop.store(output, null);

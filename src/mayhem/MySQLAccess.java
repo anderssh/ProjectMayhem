@@ -34,29 +34,12 @@ public class MySQLAccess {
             
             connect = dataSource.getConnection();	
         }
-			
-//        public void readDataBase() throws Exception {
-//                try {   
-//                        // PreparedStatements can use variables and are more efficient 
-//                        insert_idrett = connect.prepareStatement("INSERT INTO  idrett (navn) VALUES (?)");
-//                        // IDen auto-oppdaterer seg.
-//                        
-//                        insert_idrett.setString(1, "Tennis");
-//                        insert_idrett.executeUpdate();
-//                       
-//                        writeResultSet(resultSet);
-//                        writeMetaData(resultSet);
-//
-//                } catch (Exception e) {
-//                        throw e;
-//                }
-//        }
-        
+
         public ResultSet getAllWorkouts() throws Exception {
             try {   
             		String queryString = "SELECT trening_ID, dato FROM trening";
                     statement = connect.createStatement();
-                    System.out.println("asdfaasdfasdfadfsdf");
+                   // System.out.println("try-getAllWorkouts");
                     ResultSet workouts = null;
                     workouts = statement.executeQuery(queryString);
                     return workouts;

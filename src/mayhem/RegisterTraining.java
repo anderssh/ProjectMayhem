@@ -13,20 +13,20 @@ public class RegisterTraining {
 	
 	Scanner in = new Scanner(System.in);
 	
-	boolean temp = true;
-	while(temp) {
+	boolean invalid = true;
+	while(invalid) {
 			String i = in.nextLine();
 			System.out.println(i);
 		
 			if (i.toLowerCase().equals("j")) {
 				
-				System.out.println("JAAAAA");
-				temp = false;
+				//System.out.println("ja in while - RegTraining");
+				invalid = false;
 				registerWithTemplate();
 			}
 			else if(i.toLowerCase().equals("n")) {
-				System.out.println("NEIIII");
-				temp = false;
+				System.out.println("nei in while - RegTraining");
+				invalid = false;
 			}
 			else {
 				System.out.println("Skriv 'j' eller 'n' ");
@@ -39,7 +39,6 @@ public class RegisterTraining {
 	
 	
 	public void registerWithTemplate () throws Exception {
-		System.out.println("halllaaaaa");
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
 		
