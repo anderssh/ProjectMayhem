@@ -137,11 +137,11 @@ public class MySQLAccess {
         
         public ResultSet addSport(String sport) throws Exception {
         	try {
-            		String queryString = "INSERT INTO idrett (navn) VALUES ( ? )";
+            		String queryString = "INSERT INTO idrett (navn) VALUES (undervannsrugby )";
             		
             		ResultSet generatedKey = null;
 				    PreparedStatement statement = connect.prepareStatement(queryString);
-				    statement.setString(1, sport);
+				    //statement.setString(1, sport);
 				    
 				    statement.executeUpdate(queryString);
 				    generatedKey = statement.getGeneratedKeys();
