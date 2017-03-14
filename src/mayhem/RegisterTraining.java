@@ -208,12 +208,16 @@ public class RegisterTraining {
 			
 			
 			//Scanner in = new Scanner(System.in);
+<<<<<<< HEAD
+
+=======
 			/*int i = in.nextInt();
 			rs_exercises = acc.getExerciseOnID(i);
 			while(rs_exercises.next()){
 				String s = rs_exercises.getString("navn");
 				System.out.println("Du har valgt " + s);
 			}*/
+>>>>>>> 40d747d0bda3860a17723435e02c1d7af869b883
 			
 			
 						
