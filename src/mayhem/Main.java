@@ -40,7 +40,7 @@ public class Main {
 						break;
 				case 4:	
 						Notes note = new Notes();
-						note.notesHandler();
+						note.viewNotes();
 						break;
 				case 5: 
 						break;

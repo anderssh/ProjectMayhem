@@ -3,22 +3,35 @@ import java.util.Scanner;
 import java.sql.*;
 
 public class Notes {
-	public void notesHandler() throws SQLException{
-		System.out.println("Dette er alle treninger som inneholder notater");
-		//getworkoutswithnotes();
-		System.out.println("Velg hva du vil se\n");
-
-		Scanner in = new Scanner(System.in);
-		int i = in.nextInt();
-		ResultSet resultset = null;
-		//resultset=getNotes(i);
-		while (resultset.next()) {
-		       for (int j = 1; j <= 3; j++) {
-		           if (j > 1) System.out.print(",  ");
-		           String columnValue = resultset.getString(j);
-		           System.out.print(columnValue);// + " " + rsmd.getColumnName(i));
-		       }
-		       System.out.println("");
-		   }
-	}
+	public void viewNotes() throws Exception{
+		boolean done = false;
+		while(!done){
+			ResultSet rs_workouts = null;
+			MySQLAccess acc = new MySQLAccess();
+			acc.makeConnection();
+			System.out.println("Dette er alle treninger som inneholder notater");
+			rs_workouts = acc.getWorkoutsWithNotes();
+			while(rs_workouts.next()){
+				int trening_id = rs_workouts.getInt("trening_ID");
+				String date = rs_workouts.getString("dato");
+				System.out.println(trening_id + "\t" + date);
+			}
+			System.out.println("Velg hva du vil se\n");
+	
+			Scanner in = new Scanner(System.in);
+			int i = in.nextInt();
+			ResultSet rs_selected_notes = null; 
+			rs_selected_notes=acc.getNotesOnWorkoutID(i);
+			while (rs_selected_notes.next()){	
+				String notes = rs_selected_notes.getString("notat");
+				System.out.println(notes);
+			   }
+			System.out.println("Vil du se flere notater? [j/n]");
+			String s = in.nextLine();
+			if (s.toLowerCase() != "j"){
+				in.close();
+				done = true;
+			}
+		}
+	}	
 }
