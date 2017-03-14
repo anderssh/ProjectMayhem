@@ -166,17 +166,22 @@ public class RegisterTraining {
 			
 		}else{
 			ResultSetMetaData metaData = template.getMetaData();
-			MySQLAccess jaja = new MySQLAccess();
+			MySQLAccess acc = new MySQLAccess();
 			int count = metaData.getColumnCount(); //number of column
 			String columnName[] = new String[count];
 
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
 			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
+
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
 			   
 			   jaja.addResult(template,i,result);
+
+			   Scanner in = new Scanner(System.in);
+			   String result = in.nextLine();   
+
 			}
 				
 		}
