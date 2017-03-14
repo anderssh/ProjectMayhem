@@ -47,24 +47,41 @@ public class RegisterTraining {
 		
 		while(found_template == false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
-			System.out.println("----Dato-----TreningsID");
+			System.out.println("");
+			System.out.println("TreningsID" + "\t" + "Dato" + "\t" + "Idrett");
+			System.out.println("-------------------------------------------");
 			ResultSet rs_workouts = acc.getAllWorkouts();
+			int idprev = 0;
 		    while (rs_workouts.next()) {
-	            int workout = rs_workouts.getInt("Trening_ID");
+	            int id = rs_workouts.getInt("Trening_ID");
 	            String date = rs_workouts.getString("dato");
-	            System.out.println(date + "       " + workout);
+	            String sport = rs_workouts.getString("idrett");
+	            String exer = rs_workouts.getString("ovelse");
+	            if (id == idprev){
+	            	System.out.println("\t" + "-" + exer );
+	            }else{
+	            	System.out.println("");
+	            	System.out.println("[" + id + "]" + "\t" + date +  "\t" + sport);
+	            	System.out.println("\t" + "-" + exer );
+	            }
+	            idprev = id;
 	        }
+		    System.out.println("");
 		    System.out.println("Skriv inn en TreningsID for å utforske en spesifikk trening:");
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
-			System.out.println("----Dato-----TreningsID");
+			System.out.println("TreningsID" + "\t" + "Dato" + "\t" + "Tid"+ "\t" + "Varighet");
+			System.out.println("-------------------------------------------");
 		    while (rs_workoutOnID.next()) {
-	            id  = rs_workoutOnID.getInt("Trening_ID");
 	            String date 	= rs_workoutOnID.getString("dato");
-	            System.out.println(date + "       " + id);
+	            String time 	= rs_workoutOnID.getString("tid");
+	            String duration 	= rs_workoutOnID.getString("varighet");;
+	            System.out.println("[" + id + "]" + "\t" + date + "\t" + time + "\t" + duration);
 				
 		    }
+		    
+		    System.out.println("");
 		    System.out.println("Vil du bruke denne treningen som mal?(j/n)");
 		    Scanner in1 = new Scanner(System.in);
 		    boolean temp = true;
@@ -134,7 +151,8 @@ public class RegisterTraining {
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
 				rs_idrett=acc.addSport(new_sport);
-				System.out.println("hei");
+				System.out.println("jeg liker å spise bæsj");
+				rs_idrett.next();
 				sport_id = (int) rs_idrett.getLong(1);
 			}
 			

@@ -28,7 +28,8 @@ public class Main {
 			switch(i){
 				case 1:
 						RegisterTraining regTraining= new RegisterTraining();
-						regTraining.startRegister();
+						//regTraining.startRegister();
+						regTraining.input_workout(null);
 						break;
 				case 2: 
 						break;

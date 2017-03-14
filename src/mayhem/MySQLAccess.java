@@ -51,7 +51,6 @@ public class MySQLAccess {
         
         public ResultSet getAllWorkouts() throws Exception {
             try {   
-            	
             	// Returns result from asking for the workout ID, date, sport and excercises for all workouts.
             		String queryString = "SELECT trening.trening_ID, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
             		queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
@@ -59,7 +58,6 @@ public class MySQLAccess {
             		queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
             		queryString = queryString + "JOIN idrett ON trening.idrett_ID=idrett.idrett_ID;";
             		
-            		System.out.println(queryString);
             		
                     statement = connect.createStatement();
                    // System.out.println("try-getAllWorkouts");
@@ -88,6 +86,33 @@ public class MySQLAccess {
             }
         }
         
+        public ResultSet getWorkoutsWithNotes() throws Exception {
+        	try {
+            		String queryString = "SELECT trening_ID, dato FROM trening WHERE notat IS NOT NULL";
+					statement = connect.createStatement();
+					
+					ResultSet workoutsWithNotes = null;
+					workoutsWithNotes = statement.executeQuery(queryString);
+					
+					return workoutsWithNotes;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+       /* public ResultSet addWorkout(String date, String time, String Duration, int num_exercises, String performace, String Form, int sport_ID, String note) throws Exception {
+        	try {
+        		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?,?)";
+        		
+ 
+        } 
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }*/
+        
         public ResultSet getAllSports() throws Exception {
         	try {
             		String queryString = "SELECT * FROM idrett";
@@ -104,7 +129,8 @@ public class MySQLAccess {
         }
         
         public ResultSet addSport(String sport) throws Exception {
-        	PreparedStatement statement=null;
+
+        	/*PreparedStatement statement=null;
         			ResultSet generatedKey = null;
         			 
             		String queryString = "INSERT INTO " + "idrett (navn) VALUES ?";
@@ -115,23 +141,22 @@ public class MySQLAccess {
 				    //System.out.println(queryString);
 				    statement.executeUpdate();
 				    System.out.println("dra");
+*/
+        	try {
+            		String queryString = "INSERT INTO idrett (navn) VALUES ('undervannsrugby' )";
+            		
+            		ResultSet generatedKey = null;
+				    PreparedStatement statement = connect.prepareStatement(queryString);
+				    //statement.setString(1, sport);
+				    
+				    statement.executeUpdate(queryString,Statement.RETURN_GENERATED_KEYS);
+
 				    generatedKey = statement.getGeneratedKeys();
 				    return generatedKey;
-        }
-        
-        public ResultSet getWorkoutsWithNotes() throws Exception {
-        	try {
-            		String queryString = "SELECT trening_ID, dato FROM trening WHERE notat IS NOT NULL";
-					statement = connect.createStatement();
-					
-					ResultSet workoutsWithNotes = null;
-					workoutsWithNotes = statement.executeQuery(queryString);
-					
-					return workoutsWithNotes;
-            } 
-            catch (Exception e) {
-                    throw e;
-            }
+        	}
+        	finally{
+        		System.out.println("hei");
+        	}
         }
         
         public ResultSet getNotesOnWorkoutID(int trening_ID) throws Exception {
