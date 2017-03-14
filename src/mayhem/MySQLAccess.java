@@ -144,11 +144,19 @@ public class MySQLAccess {
         }
         
         public ResultSet getAllExercises() throws Exception{
-        	String queryString = "SELECT DISTINCT navn FROM ovelse";
+        	String queryString = "SELECT DISTINCT ovelse_id, navn FROM ovelse";
         	statement = connect.createStatement();                
                 ResultSet exercises = null;
                 exercises = statement.executeQuery(queryString);
                 return exercises;
+        }
+        
+        public ResultSet getExerciseOnID(int exercise_ID) throws Exception {
+        	String queryString = "SELECT  navn FROM ovelse WHERE ovelse_ID="+exercise_ID;
+			statement = connect.createStatement();
+			ResultSet exercise = null;
+			exercise = statement.executeQuery(queryString);
+			return exercise;
         }
 
 }

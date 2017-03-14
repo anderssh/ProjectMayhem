@@ -33,7 +33,7 @@ public class RegisterTraining {
 			}
 		}
 	}
-	public void registerWithoutTemplate () throws SQLException {
+	public void registerWithoutTemplate () throws Exception {
 		ResultSet template = null;
 		input_workout(template);	
 	}
@@ -91,10 +91,78 @@ public class RegisterTraining {
 		}		
 		input_workout(chosen_template);
 	}	
-	public void input_workout(ResultSet template) throws SQLException{
+	public void input_workout(ResultSet template) throws Exception{
+		Scanner in = new Scanner(System.in);
 		System.out.println("Velkommen! Her kan du skrive inn resultatene dine for dagens trening!");
 		if (template == null){
+			ResultSet rs_exercises = null;
+			MySQLAccess acc = new MySQLAccess();
+			acc.makeConnection();
+			Scanner workout_info = new Scanner(System.in);
 			
+			System.out.println("Dato [YYYY-MM-DD]:");
+			String date = workout_info.nextLine();
+			
+			System.out.println("Tid [HH-MM]:");
+			String time = workout_info.nextLine();
+			
+			System.out.println("Varighet [HH-MM]:");
+			String duration = workout_info.nextLine();
+			
+			System.out.println("Hvordan var din prestasjon? [1-10]");
+			String performance = workout_info.nextLine();
+			
+			System.out.println("Hvordan følte du deg? [1-10]");
+			String form = workout_info.nextLine();
+			
+			System.out.println("Bedrev du en av disse idretten? [0] for å legge til ny idrett.");
+			
+			int sport_type = workout_info.nextInt();
+			
+			
+			System.out.println("Trente du ute[0] eller inne[1]?");
+			
+			boolean invalid = true;
+			while(invalid){
+				int location = in.nextInt();
+				if (location==0){
+					Scanner in1 = new Scanner(System.in);
+					invalid = false;
+					System.out.println("Hvordan var været?");
+					String weather = in1.nextLine();
+					System.out.println("Hva var temperaturen?");
+					int temperature = in1.nextInt();
+					
+				}
+				else if(location==1){
+					invalid = false;
+				}
+				else{
+					System.out.println("Skriv '0' eller '1'");
+					}
+			}
+			
+			
+			
+			System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til ny øvelse.\n");
+			rs_exercises = acc.getAllExercises();
+			while(rs_exercises.next()){
+				int exercise_id = rs_exercises.getInt("ovelse_id");
+				String exercise_name = rs_exercises.getString("navn");
+				System.out.println("[" + exercise_id + "]" + "\t" + exercise_name);
+			}
+			
+			
+			//Scanner in = new Scanner(System.in);
+			int i = in.nextInt();
+			rs_exercises = acc.getExerciseOnID(i);
+			while(rs_exercises.next()){
+				String s = rs_exercises.getString("navn");
+				System.out.println("Du har valgt " + s);
+			}
+			
+			
+						
 			
 		}else{
 			ResultSetMetaData metaData = template.getMetaData();
@@ -105,7 +173,7 @@ public class RegisterTraining {
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
 			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
-			   Scanner in = new Scanner(System.in);
+			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
 			   
 			   jaja.addResult(template,i,result);
