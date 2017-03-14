@@ -88,6 +88,21 @@ public class MySQLAccess {
             }
         }
         
+        public ResultSet getAllSports() throws Exception {
+        	try {
+            		String queryString = "SELECT * FROM idrett";
+					statement = connect.createStatement();
+					
+					ResultSet allSports = null;
+					allSports = statement.executeQuery(queryString);
+					
+					return allSports;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
         public ResultSet getWorkoutsWithNotes() throws Exception {
         	try {
             		String queryString = "SELECT trening_ID, dato FROM trening WHERE notat IS NOT NULL";
