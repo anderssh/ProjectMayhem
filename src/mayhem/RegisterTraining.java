@@ -176,13 +176,14 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var v�ret?");
+					System.out.println("Hvordan var været?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
 					
 				}
-				else if(location==1){
+				else if(location==1)
+				{
 					Scanner in2 = new Scanner(System.in);
 					invalid = false;
 					System.out.println("Hvordan var ventilasjonen?");
@@ -194,8 +195,6 @@ public class RegisterTraining {
 					System.out.println("Skriv '0' eller '1'");
 					}
 			}
-			
-			
 			
 			System.out.println("Her er alle �velsene du kan velge i. [0] for � legge til ny �velse.\n");
 			rs_exercises = acc.getAllExercises();
@@ -225,7 +224,7 @@ public class RegisterTraining {
 
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
-			   System.out.println(" Skriv inn f�lgende:" + columnName[i-1]);
+			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
 
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
