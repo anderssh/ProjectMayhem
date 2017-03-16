@@ -34,7 +34,7 @@ public class Main {
 						ResultSet bs = null;
 						MySQLAccess acc = new MySQLAccess();
 						acc.makeConnection();
-						bs = acc.getWorkoutOnID(7);
+						bs = acc.getWorkoutOnID(8);
 						break;
 				case 3: 
 						break;
