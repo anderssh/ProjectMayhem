@@ -296,7 +296,7 @@ public class MySQLAccess {
         }
         
         public ResultSet getAllExercises() throws Exception{
-        	String queryString = "SELECT * FROM ovelse";
+        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID;";
         	statement = connect.createStatement();                
                 ResultSet exercises = null;
                 exercises = statement.executeQuery(queryString);
@@ -341,6 +341,8 @@ public class MySQLAccess {
 				    
 			return generatedKey;      
         }
+        
+        
         public ResultSet addExerciseDetails(int load, int set, int rep, String duration, int exercise_ID) throws SQLException{
         	PreparedStatement prepStat = null;
 			String queryString = "INSERT INTO ovelse_detaljer (belastning_kg,antall_set,antall_repetisjoner,varighet,ovelse_ID) VALUES (?,?,?,?,?)";
