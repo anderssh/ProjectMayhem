@@ -221,13 +221,13 @@ public class RegisterTraining {
 
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
-<<<<<<< HEAD
+
 			   System.out.println("Skriv inn:" + columnName[i-1]);
 			   	
-=======
+
 			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
 
->>>>>>> 9f48fd537f993690f7b5e57a8f04102cb5e4cbc7
+
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
 			   //addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note)
