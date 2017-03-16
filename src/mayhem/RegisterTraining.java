@@ -71,13 +71,17 @@ public class RegisterTraining {
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
-			System.out.println("Id" + "\t" + "Dato" + "\t"+ "\t"  + "Tid"+ "\t" + "\t" + "Varighet");
+			System.out.println("Id" + "\t" +  "Idrett" + "\t" +  "Inne/Ute" + "\t" + "Øvelse"+ "\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
 			System.out.println("-------------------------------------------");
 		    while (rs_workoutOnID.next()) {
-	            String date 	= rs_workoutOnID.getString("dato");
-	            String time 	= rs_workoutOnID.getString("tid");
-	            String duration 	= rs_workoutOnID.getString("varighet");
-	            System.out.println("[" + id + "]" + "\t" + date + "\t" + time + "\t" + duration);
+		    	String  outin	= rs_workoutOnID.getString("inneute");
+	            String sport	= rs_workoutOnID.getString("idrett");
+	            String  exer	= rs_workoutOnID.getString("ovelse");
+	            int sets  	= rs_workoutOnID.getInt("antall_set");
+	            int reps 	= rs_workoutOnID.getInt("antall_repetisjoner");
+	            
+	            
+	            System.out.println("[" + id + "]" + "\t" + outin + "\t" + sport + "\t" + exer + "\t" + sets+ "\t" + reps );
 				
 		    }
 		    
@@ -218,20 +222,20 @@ public class RegisterTraining {
 			MySQLAccess acc = new MySQLAccess();
 			int count = metaData.getColumnCount(); //number of column
 			String columnName[] = new String[count];
-
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
 
 			   System.out.println("Skriv inn:" + columnName[i-1]);
 			   	
 
-			   System.out.println(" Skriv inn fÃ¸lgende:" + columnName[i-1]);
+			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
 
 
-			 //  Scanner in = new Scanner(System.in);
-			   String result = in.nextLine();
-			   //addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note)
+			   //Scanner in = new Scanner(System.in);
+			   String result = columnName[i-1];
+			   result = in.nextLine();
 			}
+			//addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note);
 		}
 	}
 	
