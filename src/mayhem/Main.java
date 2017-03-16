@@ -1,11 +1,10 @@
 package mayhem;
 
 import mayhem.PropertyHandling;
-import mayhem.MySQLAccess;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
 import mayhem.Notes;
-import java.sql.*;
+import mayhem.RegisterSport;
 public class Main {
 	
 	
@@ -44,7 +43,9 @@ public class Main {
 				case 5: 
 						break;
 				case 6: 
-					break;
+						RegisterSport regSport = new RegisterSport();
+						regSport.displaySports();
+						break;
 				case 7: done = true;
 						break;
 				default: 
