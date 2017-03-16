@@ -138,10 +138,10 @@ public class RegisterTraining {
 			System.out.println("Hvordan var din prestasjon? [1-10]");
 			int performance = workout_info.nextInt();
 			
-			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
+			System.out.println("Hvordan følte du deg? [1-10]");
 			int form = workout_info.nextInt();
 			
-			System.out.println("Bedrev du en av disse idretten? [0] for ï¿½ legge til ny idrett.");
+			System.out.println("Bedrev du en av disse idrettene? Tast [0] for å legge til ny idrett.");
 			ResultSet rs_all_sports = acc.getAllSports();
 			int sport_ID = 0;
 			String sport_name;
@@ -155,7 +155,7 @@ public class RegisterTraining {
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn pï¿½ ny idrett");
+				System.out.println("Skriv navn på ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
@@ -182,7 +182,7 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var vÃ¦ret?");
+					System.out.println("Hvordan var været?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
@@ -234,41 +234,61 @@ public class RegisterTraining {
 				
 		}
 			
-			
-			
-			
-			/*Scanner in5 = new Scanner(System.in);
-			int i = in5.nextInt();
-			rs_exercises = acc.getExerciseOnID(i);
-			while(rs_exercises.next()){
-				String s = rs_exercises.getString("navn");
-				System.out.println("Du har valgt " + s);
-			}*/
-			
-			
-						
-			
 		else{
-			ResultSetMetaData metaData = template.getMetaData();
+			
+			String outin  = template.getString("inneUte");
+			int sport_ID = template.getInt("idrett_ID");
+			int exercise_ID = template.getInt("ovelse_ID");
+			int workout_ID = template.getInt("trening_ID");
+			
+			ResultSet rs_workout_ID = null;
+			ResultSet rs_exercises = null;
 			MySQLAccess acc = new MySQLAccess();
-			int count = metaData.getColumnCount(); //number of column
-			String columnName[] = new String[count];
-			for (int i = 1; i <= count; i++){
-			   columnName[i-1] = metaData.getColumnLabel(i);
-
-			   System.out.println("Skriv inn:" + columnName[i-1]);
-			   	
-
-			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
-
-
-			   //Scanner in = new Scanner(System.in);
-			   String result = columnName[i-1];
-			   result = in.nextLine();
+			acc.makeConnection();
+			Scanner workout_info = new Scanner(System.in);
+			
+			System.out.println("Dato [YYYY-MM-DD]:");
+			String date = workout_info.nextLine();
+			
+			System.out.println("Tid [HH:MM]:");
+			String time = workout_info.nextLine();
+			
+			System.out.println("Varighet [HH:MM]:");
+			String duration = workout_info.nextLine();
+			
+			System.out.println("Hvordan var din prestasjon? [1-10]");
+			int performance = workout_info.nextInt();
+			
+			System.out.println("Hvordan følte du deg? [1-10]");
+			int form = workout_info.nextInt();
+			
+			System.out.println("Hvis du vil, legg til et notat.");
+			String note = workout_info.nextLine();
+			
+			
+			if (outin == "Innetrening"){
+				System.out.println("Hvordan var ventilasjonen?");
+				String ventilation = workout_info.nextLine();
+				System.out.println("Antall tilskuere?");
+				int crowd = workout_info.nextInt();
+				
+				ResultSet workout_id= acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
+			}else if (outin == "Utetrening"){
+				System.out.println("Hvordan var været?");
+				String weatherType = workout_info.nextLine();
+				System.out.println("Hvordan var temperaturen?");
+				int temperature = workout_info.nextInt();
+				
+				ResultSet workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
+			}else{
+				System.out.println("Noe fucket seg!!");
 			}
-			//addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note);
+			while(template.next()){
+				chooseExistingExercise(workout_ID,exercise_ID);
+			}
+			
 		}
-	}
+}
 	
 	public void chooseExistingExercise(int workout_ID,int exercise_ID) throws Exception{
 		MySQLAccess acc = new MySQLAccess();
