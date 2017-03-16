@@ -43,11 +43,13 @@ public class MySQLAccess {
         public ResultSet getAllWorkouts() throws Exception {
             try {   
             	// Returns result from asking for the workout ID, date, sport and excercises for all workouts.
-            		String queryString = "SELECT trening.trening_ID, trening.tid, trening.varighet, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
-            		queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
-            		queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
-            		queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
-            		queryString = queryString + "JOIN idrett ON trening.idrett_ID=idrett.idrett_ID;";
+            		String queryString = "SELECT trening.trening_ID, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
+            		queryString = queryString + "LEFT JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
+            		queryString = queryString + "LEFT JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
+            		queryString = queryString + "LEFT JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
+            		queryString = queryString + "LEFT JOIN idrett ON trening.idrett_ID=idrett.idrett_ID ";
+            		queryString = queryString + "ORDER BY dato;";
+
             		
             		
                     statement = connect.createStatement();
@@ -61,8 +63,42 @@ public class MySQLAccess {
             }
         }
         
-
-
+        public ResultSet getAllWorkoutsAndDates() throws SQLException{
+        	PreparedStatement prepStat = null;
+        	String queryString = "SELECT DISTINCT trening_ID, dato, varighet FROM trening ORDER BY dato";
+			statement = connect.createStatement();
+			
+			ResultSet workoutsWithDates = null;
+			workoutsWithDates = statement.executeQuery(queryString);
+			
+			return workoutsWithDates;
+        }
+   
+        public ResultSet getWorkoutsOnYear(String year) throws SQLException{
+        	int next_year_int = Integer.parseInt(year) +1;
+        	String next_year_string =  Integer.toString(next_year_int);
+        	String queryString = "SELECT *, HOUR(varighet) AS hour, MINUTE(varighet) AS minute, SECOND(varighet) as second FROM trening WHERE dato >= '" + year + "-01-01'";
+        	queryString = queryString + " AND dato < '" + next_year_string + "-01-01' ORDER BY dato;";
+        	PreparedStatement prepStat = null;
+        	prepStat = connect.prepareStatement(queryString);
+    		
+			ResultSet exercise_by_year = null;
+			exercise_by_year = prepStat.executeQuery();
+			return exercise_by_year;
+        }
+        
+        public ResultSet getWorkoutsOnMonth(String year,String month) throws SQLException{
+        	int next_month_int = Integer.parseInt(month) +1;
+        	String next_month_string =  Integer.toString(next_month_int);
+        	String queryString = "SELECT *, HOUR(varighet) AS hour, MINUTE(varighet) AS minute, SECOND(varighet) as second FROM trening WHERE dato >= '" + year + "-" + month + "-01'";
+        	queryString = queryString + " AND dato < '" + year + "-" + next_month_string + "-01' ORDER BY dato;";
+        	PreparedStatement prepStat = null;
+        	prepStat = connect.prepareStatement(queryString);
+    		
+			ResultSet exercise_by_month = null;
+			exercise_by_month = prepStat.executeQuery();
+			return exercise_by_month;
+        }
 
         public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
         	try {
