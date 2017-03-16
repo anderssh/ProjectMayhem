@@ -24,7 +24,8 @@ public class RegisterExercise {
             int ID = rs_exercise.getInt("ovelse_ID");
             String ovelse = rs_exercise.getString("navn");
             String description = rs_exercise.getString("beskrivelse");
-            System.out.println( "[" + ID + "]" + "\t" + ovelse + "\t" + description);  
+            System.out.format("[%d]  " +"%-30s%-50s", ID, ovelse, description);
+            System.out.println("");
 		}
 		System.out.println("-------------------------------------------------");
 		System.out.println("");
@@ -64,6 +65,7 @@ public class RegisterExercise {
 	    
 	    workoutTypes = acc.getWorkoutType();
 	    System.out.println("Her ser du treningstypene som finnes, velg den som passer til din nye øvelse:");
+	    System.out.println("");
 	    
 		while (workoutTypes.next()) {
             int ID = workoutTypes.getInt("treningstype_ID");
@@ -71,12 +73,19 @@ public class RegisterExercise {
             System.out.println( "[" + ID + "]" + "\t" + workoutTypeName);  
 		}
 		workoutType = in2.nextInt();
-
+		
+		System.out.println("Skriv en liten beskrivelse til for den nye øvelsen (Bør være mindre enn 100 tegn):");
+		
+		Scanner in3 = new Scanner(System.in);
+		newDescription = in3.nextLine();
+		
 	    acc.addExercise(newExerciseName, newDescription, workoutType);
-
-	    System.out.println("Gratulerer! Du har lagt til øvelsen " + newExerciseName);
+	    
+	    System.out.println("");
+	    System.out.println("Gratulerer! Du har lagt til øvelsen " + newExerciseName + "!");
 	    System.out.println("");
 	    
+	    displayExercises();
 	}
 }
 	

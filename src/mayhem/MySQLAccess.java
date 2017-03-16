@@ -289,14 +289,9 @@ public class MySQLAccess {
                         System.out.println("ID: " + idrett_id + "      Navn:" + navn);
                 }
         }
-
-        public void addWorkout(ResultSet resultSet, int i, String a) throws SQLException {
-        
-        	
-        }
         
         public ResultSet getAllExercises() throws Exception{
-        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID;";
+        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, beskrivelse, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID;";
         	statement = connect.createStatement();                
                 ResultSet exercises = null;
                 exercises = statement.executeQuery(queryString);
@@ -317,6 +312,37 @@ public class MySQLAccess {
                     throw e;
             }
         }
+        
+        public ResultSet getAllExerciseTypes() throws Exception {
+        	try {
+            		String queryString = "SELECT  * FROM treningstype";
+					statement = connect.createStatement();
+					
+					ResultSet exerciseTypes = null;
+					exerciseTypes = statement.executeQuery(queryString);
+					
+					return exerciseTypes;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+        public ResultSet addExerciseType(String exerciseType) throws Exception {
+			PreparedStatement prepStat = null;
+			String queryString = "INSERT INTO treningstype (navn) VALUES (?)";
+				    
+			prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+			prepStat.setString(1, exerciseType);
+				    
+			prepStat.executeUpdate();
+			ResultSet generatedKey = null;
+		    generatedKey = prepStat.getGeneratedKeys();
+				    
+			return generatedKey;        	
+        }
+        
+        
         
         public ResultSet getWorkoutType() throws SQLException{
         	String queryString = "SELECT * FROM treningstype";

@@ -13,7 +13,7 @@ public class Goals {
 		
 		RegisterTraining reg = new RegisterTraining();
 		
-		System.out.println("Vil du oppdatere mål? ('ja'/'nei'");
+		System.out.println("Vil du oppdatere mål? ('ja'/'nei')");
 		Scanner in_exercise = new Scanner(System.in);
 		boolean invalid = true;
 		while(invalid){
@@ -51,7 +51,6 @@ public class Goals {
 				String note = in_exercise.nextLine();
 				
 				acc.addGoal(exercise_details_ID, achieved, note);
-				System.out.println("hadebraaa");
 				invalid = false;
 			}
 			else if (i.toLowerCase().equals("nei")){

@@ -4,6 +4,7 @@ import mayhem.PropertyHandling;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
 import mayhem.Notes;
+import mayhem.Goals;
 import mayhem.ScriptRunner;
 import java.sql.*;
 
@@ -20,11 +21,12 @@ public class Main {
 			System.out.println("[2] \t Se tidligere trening");
 			System.out.println("[3] \t Statistikk ");
 			System.out.println("[4] \t Notater");
-			System.out.println("[5] \t Oppdater mål ");
+			System.out.println("[5] \t Oppdater mÃ¥l ");
 			System.out.println("[6] \t Se / Legg til idrett ");
-			System.out.println("[7] \t Se / Legg til øvelse ");
-			System.out.println("[8] \t Sett opp database");
-			System.out.println("[9] \t Avslutt");
+			System.out.println("[7] \t Se / Legg til Ã¸velse ");
+			System.out.println(" [8] \t Se / Legg til treningstype ");
+			System.out.println("[9] \t Sett opp database");
+			System.out.println("[10] \t Avslutt");
 			
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
@@ -56,13 +58,17 @@ public class Main {
 						RegisterExercise regEx = new RegisterExercise();
 						regEx.displayExercises();
 						break;
-
-				case 8: 
+				case 8:
+						RegisterExerciseType regExType = new RegisterExerciseType();
+						regExType.displayExerciseTypes();
+						break;
+				case 9: 
 						MySQLAccess setup = new MySQLAccess();
 						setup.setupDatabase();
-				case 9:
+				case 10:
 						done = true;
 						break;
+						
 				default: 
 					System.out.println("Skriv inn tall fra 1-9");
 			}

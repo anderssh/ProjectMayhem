@@ -8,8 +8,8 @@ public class RegisterTraining {
 	
 	public void startRegister () throws Exception {
 	
-	System.out.println("Nå skal du registrere en ny trening");
-	System.out.println("ønsker du å benytte en mal? [J/N]");
+	System.out.println("NÃ¥ skal du registrere en ny trening");
+	System.out.println("Ã˜nsker du Ã¥ benytte en mal? [J/N]");
 	
 	Scanner in = new Scanner(System.in);
 	
@@ -139,10 +139,10 @@ public class RegisterTraining {
 			System.out.println("Hvordan var din prestasjon? [1-10]");
 			int performance = workout_info.nextInt();
 			
-			System.out.println("Hvordan følte du deg? [1-10]");
+			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
 			int form = workout_info.nextInt();
 			
-			System.out.println("Bedrev du en av disse idrettene? Tast [0] for å legge til ny idrett.");
+			System.out.println("Bedrev du en av disse idrettene? Tast [0] for ï¿½ legge til ny idrett.");
 			ResultSet rs_all_sports = acc.getAllSports();
 			int sport_ID = 0;
 			String sport_name;
@@ -156,7 +156,7 @@ public class RegisterTraining {
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn på ny idrett");
+				System.out.println("Skriv navn pÃ‚ ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
@@ -183,7 +183,7 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var været?");
+					System.out.println("Hvordan var vï¿½ret?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
@@ -210,7 +210,7 @@ public class RegisterTraining {
 			
 			boolean addExercise = true;
 			while (addExercise){
-				System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til en øvelse som ikke finnes.\n");
+				System.out.println("Her er alle ï¿½velsene du kan velge i. [0] for ï¿½ legge til en ï¿½velse som ikke finnes.\n");
 				rs_exercises = acc.getAllExercises();
 				while(rs_exercises.next()){
 					int exercise_id = rs_exercises.getInt("ovelse_ID");
@@ -225,7 +225,7 @@ public class RegisterTraining {
 				else if(i > 0){
 					chooseExistingExercise(workout_ID,i);
 				}
-				System.out.println("[1] for å legge til flere ï¿½velser.");
+				System.out.println("[1] for ï¿½ legge til flere ï¿½velser.");
 				System.out.println("[2] Ferdig.");
 				int ex = exercise.nextInt();
 				if(ex == 2){
@@ -281,7 +281,7 @@ public class RegisterTraining {
 				workout_id_int = (int)rs_workout_id.getLong(1);
 				
 			}else if (outin.toLowerCase().equals("utetrening")){
-				System.out.println("Hvordan var været?");
+				System.out.println("Hvordan var vÃŠret?");
 				String weatherType = more.nextLine();
 				System.out.println("Hvordan var temperaturen?");
 				int temperature = more.nextInt();
@@ -311,7 +311,7 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		System.out.println("Hvor lenge varte Â¯velsen? [HH:MM] ");
 		Scanner in_duration = new Scanner(System.in);
 		String duration = in_duration.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,exercise_ID);
@@ -346,7 +346,7 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		System.out.println("Hvor lenge varte Â¯velsen? [HH:MM] ");
 		Scanner in_duration = new Scanner(System.in);
 		String duration = in_duration.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,new_exercise_ID);
