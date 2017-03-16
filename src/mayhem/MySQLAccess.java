@@ -59,7 +59,7 @@ public class MySQLAccess {
 
         public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
         	try {
-                String queryString = "SELECT trening.trening_ID, idrett.navn AS idrett, 'Innetrening' AS innetrening, ovelse.navn AS ovelse, ";
+                String queryString = "SELECT trening.trening_ID, idrett.navn AS idrett, 'Innetrening' AS inneUte, ovelse.navn AS ovelse, ";
                 queryString = queryString + "belastning_kg, antall_set, antall_repetisjoner, ovelse_detaljer.varighet AS ovelse_varighet, ventilasjon, antall_tilskuere  FROM trening ";
                 queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
                 queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID " ;
