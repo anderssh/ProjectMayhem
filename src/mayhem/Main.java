@@ -10,8 +10,8 @@ public class Main {
 	
 
 	public static void main(String[] args) throws Exception {
-		//PropertyHandling ph = new PropertyHandling();
-		//ph.CreateDatabaseProperties();
+		PropertyHandling ph = new PropertyHandling();
+		ph.CreateDatabaseProperties();
 		boolean done = false;
 		while(!done){
 			System.out.println("Velg handling: \n");

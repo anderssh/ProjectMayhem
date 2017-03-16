@@ -237,13 +237,6 @@ public class RegisterTraining {
 		}
 			
 		else{
-			
-			template.next();
-			String outin  = template.getString("inneUte");
-			int sport_ID = template.getInt("idrett_ID");
-			int exercise_ID = template.getInt("ovelse_ID");
-			int workout_ID = template.getInt("trening_ID");
-			
 			ResultSet rs_workout_ID = null;
 			ResultSet rs_exercises = null;
 			MySQLAccess acc = new MySQLAccess();
@@ -268,28 +261,34 @@ public class RegisterTraining {
 			System.out.println("Hvis du vil, legg til et notat.");
 			String note = workout_info.nextLine();
 			
-			
-			if (outin == "Innetrening"){
-				System.out.println("Hvordan var ventilasjonen?");
-				String ventilation = workout_info.nextLine();
-				System.out.println("Antall tilskuere?");
-				int crowd = workout_info.nextInt();
-				
-				ResultSet workout_id= acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
-			}else if (outin == "Utetrening"){
-				System.out.println("Hvordan var vï¿½ret?");
-				String weatherType = workout_info.nextLine();
-				System.out.println("Hvordan var temperaturen?");
-				int temperature = workout_info.nextInt();
-				
-				ResultSet workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
-			}else{
-				System.out.println("Noe fucket seg!!");
-			}
+			template.next();
+			String outin  = template.getString("inneUte");
+			int sport_ID = template.getInt("idrett_ID");
+			int exercise_ID = template.getInt("ovelse_ID");
+			int workout_ID = template.getInt("trening_ID");
+			System.out.println("wæææææææ");
 			while(template.next()){
-				chooseExistingExercise(workout_ID,exercise_ID);
+				if (outin.toLowerCase().equals("innetrening")){
+					System.out.println("Hvordan var ventilasjonen?");
+					String ventilation = workout_info.nextLine();
+					System.out.println("Antall tilskuere?");
+					int crowd = workout_info.nextInt();
+					
+					ResultSet workout_id= acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
+				}else if (outin.toLowerCase().equals("utetrening")){
+					System.out.println("Hvordan var vï¿½ret?");
+					String weatherType = workout_info.nextLine();
+					System.out.println("Hvordan var temperaturen?");
+					int temperature = workout_info.nextInt();
+					
+					ResultSet workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
+				}else{
+					System.out.println("Noe fucket seg!!");
+				}
+				while(template.next()){
+					chooseExistingExercise(workout_ID,exercise_ID);
+				}
 			}
-			
 		}
 }
 	
