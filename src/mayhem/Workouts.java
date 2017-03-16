@@ -15,8 +15,8 @@ public class Workouts {
 		while(found_template == false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
 			System.out.println("");
-			System.out.println("Id" + "\t" + "Dato" + "\t" +  "\t" + "Idrett"+"Tid" + "Varighet");
-			System.out.println("-------------------------------------------");
+			System.out.println("Id" + "\t" + "Dato" + "\t" +  "\t" + "Idrett"+ "\t" +  "\t" + "Tid" + "\t" +  "\t" +  "Varighet");
+			System.out.println("-----------------------------------------------------------------------------------------------");
 			ResultSet rs_workouts = acc.getAllWorkouts();
 			int idprev = 0;
 		    while (rs_workouts.next()) {
