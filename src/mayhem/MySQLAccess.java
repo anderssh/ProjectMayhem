@@ -57,13 +57,33 @@ public class MySQLAccess {
         
         public ResultSet getWorkoutOnID(int trening_ID) throws Exception {
         	try {
-            		String queryString = "SELECT  * FROM trening WHERE trening_ID="+trening_ID;
-					statement = connect.createStatement();
+            		String queryString = "SELECT trening.trening_ID FROM trening JOIN innetrening ON trening.trening_ID=innetrening.trening_ID";
+            		queryString = queryString + "WHERE innetrening.trening_ID=?";
+            		PreparedStatement prepStat = null;
+            		
+					prepStat = connect.prepareStatement(queryString);
+					prepStat.setInt( 1, trening_ID);
+
+					ResultSet innet = null;
+					innet = prepStat.executeQuery();
 					
-					ResultSet workout = null;
-					workout = statement.executeQuery(queryString);
+            		queryString = "SELECT trening.trening_ID FROM trening JOIN utetrening ON trening.trening_ID=utetrening.trening_ID";
+            		queryString = queryString + "WHERE utetrening.trening_ID=?";
+            		
+					prepStat = connect.prepareStatement(queryString);
+					prepStat.setInt( 1, trening_ID);
+
+					ResultSet utet = null;
+					utet = prepStat.executeQuery();
 					
-					return workout;
+					if (innet.next() == false) {
+						System.out.println("Innetrening er false");
+					}
+						if (utet.next() == false) {
+							System.out.println("Begge er false");
+        			}
+					
+					return utet;
             } 
             catch (Exception e) {
                     throw e;
@@ -126,7 +146,7 @@ public class MySQLAccess {
         	ResultSet trening_ID = null;
         	trening_ID = addWorkout(date, time, duration, performance, form, sport_ID, note);
         	
-        	String queryString = "INSERT INTO inneTrening (vaerType, temperatur) VALUES (?,?)";
+        	String queryString = "INSERT INTO inneTrening (vaertype, temperatur) VALUES (?,?)";
 		    PreparedStatement prepStat = null;
         	
 		    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
