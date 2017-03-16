@@ -120,19 +120,19 @@ public class RegisterTraining {
 			System.out.println("Dato [YYYY-MM-DD]:");
 			String date = workout_info.nextLine();
 			
-			System.out.println("Tid [HH-MM]:");
+			System.out.println("Tid [HH:MM]:");
 			String time = workout_info.nextLine();
 			
-			System.out.println("Varighet [HH-MM]:");
+			System.out.println("Varighet [HH:MM]:");
 			String duration = workout_info.nextLine();
 			
 			System.out.println("Hvordan var din prestasjon? [1-10]");
 			String performance = workout_info.nextLine();
 			
-			System.out.println("Hvordan følte du deg? [1-10]");
+			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
 			String form = workout_info.nextLine();
 			
-			System.out.println("Bedrev du en av disse idretten? [0] for å legge til ny idrett.");
+			System.out.println("Bedrev du en av disse idretten? [0] for ï¿½ legge til ny idrett.");
 			ResultSet rs_all_sports = acc.getAllSports();
 			int sport_ID = 0;
 			String sport_name;
@@ -146,7 +146,7 @@ public class RegisterTraining {
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn på ny idrett");
+				System.out.println("Skriv navn pï¿½ ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
@@ -176,7 +176,7 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var været?");
+					System.out.println("Hvordan var vï¿½ret?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
@@ -197,7 +197,7 @@ public class RegisterTraining {
 			
 			
 			
-			System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til ny øvelse.\n");
+			System.out.println("Her er alle ï¿½velsene du kan velge i. [0] for ï¿½ legge til ny ï¿½velse.\n");
 			rs_exercises = acc.getAllExercises();
 			while(rs_exercises.next()){
 				int exercise_id = rs_exercises.getInt("ovelse_ID");
@@ -225,7 +225,7 @@ public class RegisterTraining {
 
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
-			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
+			   System.out.println(" Skriv inn fï¿½lgende:" + columnName[i-1]);
 
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
