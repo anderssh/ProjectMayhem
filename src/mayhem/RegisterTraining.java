@@ -19,8 +19,6 @@ public class RegisterTraining {
 			System.out.println(i);
 		
 			if (i.toLowerCase().equals("j")) {
-				
-				//System.out.println("ja in while - RegTraining");
 				invalid = false;
 				registerWithTemplate();
 			}
@@ -71,8 +69,8 @@ public class RegisterTraining {
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
-			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "\t" + "ï¿½velse" + "\t"+"\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
-			System.out.println("-------------------------------------------------------------------------------------------------------------");
+			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "\t" + "Øvelse" + "\t" + "Antall sett"+ "\t" + "Antall reps"+ "\t" + "Belastning(kg)");
+			System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
 		    int idprev1 = 0;
 			while (rs_workoutOnID.next()) {
 		    	String  outin	= rs_workoutOnID.getString("inneUte");
@@ -80,11 +78,12 @@ public class RegisterTraining {
 	            String  exer	= rs_workoutOnID.getString("ovelse");
 	            int sets  	= rs_workoutOnID.getInt("antall_set");
 	            int reps 	= rs_workoutOnID.getInt("antall_repetisjoner");
+	            int load 	= rs_workoutOnID.getInt("belastning_kg");
 	            
 	            if (id == idprev1){
-	            	System.out.println("\t"  + "\t" + "\t"  + "\t" + "\t" + exer + "\t" + sets + "\t"+"\t"+  reps );
+	            	System.out.println("\t"  + "\t" + "\t"  + "\t" + "\t" + exer + "\t" + sets +"\t"+  reps +"\t"+ load);
 	            }else{
-	            	System.out.println("[" + id + "]" + "\t" + outin + "\t" + sport + "\t" + exer + "\t" + sets + "\t"+"\t"+ reps );
+	            	System.out.println("[" + id + "]" + "\t" + outin + "\t" + sport + "\t" + exer + "\t" + sets +"\t"+ reps+"\t"+ load );
 	            }
 	            idprev1 = id;
 	            
@@ -264,20 +263,23 @@ public class RegisterTraining {
 			
 			template.next();
 			String outin  = template.getString("inneUte");
+			String exer  = template.getString("ovelse");
 			int sport_ID = template.getInt("idrett_ID");
 			int exercise_ID = template.getInt("ovelse_ID");
 			int workout_ID = template.getInt("trening_ID");
 			template.beforeFirst();
 			
 			ResultSet rs_workout_id = null;
-			int lol = 0;
+			int workout_id_int = 0;
+			
 			if (outin.toLowerCase().equals("innetrening")){
 				System.out.println("Hvordan var ventilasjonen?");
 				String ventilation = more.nextLine();
 				System.out.println("Antall tilskuere?");
 				int crowd = more.nextInt();
 				rs_workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
-				lol = (int)rs_workout_id.getLong(1);
+				workout_id_int = (int)rs_workout_id.getLong(1);
+				
 			}else if (outin.toLowerCase().equals("utetrening")){
 				System.out.println("Hvordan var vÃŠret?");
 				String weatherType = more.nextLine();
@@ -285,14 +287,16 @@ public class RegisterTraining {
 				int temperature = more.nextInt();
 				
 				rs_workout_id = acc.addOutsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
-				lol = (int)rs_workout_id.getLong(1);
+				workout_id_int = (int)rs_workout_id.getLong(1);
 			}else{
 				System.out.println("Noe gikk galt!!");
 			}
 			
 			while(template.next()){
 				exercise_ID = template.getInt("ovelse_ID");
-				chooseExistingExercise(lol,exercise_ID);
+				exer = template.getString("ovelse");
+				System.out.println("Skriv inn informasjon om følgende øvelse: " + exer);
+				chooseExistingExercise(workout_id_int,exercise_ID);
 			}
 		}
 }
