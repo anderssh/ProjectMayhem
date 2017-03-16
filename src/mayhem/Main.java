@@ -6,6 +6,7 @@ import mayhem.RegisterTraining;
 import mayhem.Notes;
 import mayhem.Goals;
 import mayhem.ScriptRunner;
+import mayhem.Workouts;
 import java.sql.*;
 
 public class Main {

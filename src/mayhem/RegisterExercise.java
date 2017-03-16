@@ -2,6 +2,7 @@
 package mayhem;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Scanner; 
 
 public class RegisterExercise {
@@ -20,11 +21,22 @@ public class RegisterExercise {
 		
 		System.out.println("");
 		
+		ResultSet result = null;
+		ArrayList<Integer> arl = new ArrayList<Integer>(); 
+		String arlString = null;
+		
 		while (rs_exercise.next()) {
             int ID = rs_exercise.getInt("ovelse_ID");
+            result = acc.getSimilarExerciseOnID(ID);
+            arl.clear();
+            while(result.next()){
+            	arl.add(result.getInt("ovelse_ID_2"));
+            }
+            arlString = arl.toString();
             String ovelse = rs_exercise.getString("navn");
             String description = rs_exercise.getString("beskrivelse");
-            System.out.format("[%d]  " +"%-30s%-50s", ID, ovelse, description);
+            //System.out.println("ID \t \t Øvelse \t ID til øvelser som kan erstattes med \t beskrivelse");
+            System.out.format("[%d]  " +"%-30s%-10s%-50s", ID, ovelse, arlString, description);
             System.out.println("");
 		}
 		System.out.println("-------------------------------------------------");
@@ -81,8 +93,10 @@ public class RegisterExercise {
 		Scanner in3 = new Scanner(System.in);
 		newDescription = in3.nextLine();
 		
-		ResultSet thisID = null;
-	    thisID = acc.addExercise(newExerciseName, newDescription, workoutType);
+		ResultSet returnedKey = null;
+	    returnedKey = acc.addExercise(newExerciseName, newDescription, workoutType);
+	    returnedKey.next();
+	    int thisID = (int) returnedKey.getLong(1); 
 	    
 	    System.out.println("Hvilke øvelser kan denne nye øvelsen erstatte?");
 	    System.out.println("Skriv in tallet til de aktuelle øvelsene, med linjeskift i mellom. [0] for å avslutte");
@@ -91,8 +105,11 @@ public class RegisterExercise {
 	    int newSimilarExercise;
 	    while (temp == true) {
 	    	newSimilarExercise = in3.nextInt();
-	    	
-	    	
+	    	if (newSimilarExercise == 0) {
+	    		break;
+	    	}
+	    	acc.addSimilarExercise(thisID,newSimilarExercise);
+	    	acc.addSimilarExercise(newSimilarExercise,thisID);
 	    }
 	    
 	    System.out.println("");

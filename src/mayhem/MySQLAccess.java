@@ -60,9 +60,6 @@ public class MySQLAccess {
                     throw e;
             }
         }
-        
-
-
 
         public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
         	try {
@@ -405,6 +402,20 @@ public class MySQLAccess {
         	prepStat.setInt(2, exercise_ID_2);
         	
         	prepStat.executeUpdate();    	
+        }
+        
+        public ResultSet getSimilarExerciseOnID(int ID) throws Exception {
+            try {   
+            		String queryString = "SELECT * FROM kan_erstatte_ovelse WHERE ovelse_ID_1 = "+ID;
+
+                    statement = connect.createStatement();
+                    ResultSet exercises = null;
+                    exercises = statement.executeQuery(queryString);
+                    return exercises;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
         }
         
         public void addGoal(int exercise_details_ID, String achieved, String note) throws Exception{
