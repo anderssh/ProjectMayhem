@@ -216,7 +216,7 @@ public class RegisterTraining {
 					registerNewExercise(workout_ID);
 				}
 				else if(i > 0){
-					chooseExistingExercise(i);
+					chooseExistingExercise(workout_ID,i);
 				}
 				System.out.println("[1] for å legge til flere øvelser.");
 				System.out.println("[2] Ferdig.");
@@ -264,9 +264,22 @@ public class RegisterTraining {
 		}
 	}
 	
-	public void chooseExistingExercise(int i){
-		
-		
+	public void chooseExistingExercise(int workout_ID,int exercise_ID) throws Exception{
+		MySQLAccess acc = new MySQLAccess();
+		acc.makeConnection();
+		Scanner in_exercise = new Scanner(System.in);
+		System.out.println("Belastning [kg]: ");
+		int load = in_exercise.nextInt();
+		System.out.println("Antall set: ");
+		int set = in_exercise.nextInt();
+		System.out.println("Antall reps: ");
+		int rep = in_exercise.nextInt();
+		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		String duration = in_exercise.nextLine();
+		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,exercise_ID);
+		rs_exercise_details.next();
+		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
+		acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
 	}
 	public void registerNewExercise(int workout_ID) throws Exception{
 		MySQLAccess acc = new MySQLAccess();
@@ -299,10 +312,7 @@ public class RegisterTraining {
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
 		acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
-		//acc.addExerciseToWorkout()
-		//System.out.println(new_exercise_name + " er registrert i treningen din.");
-		//String exercise_description = in_exercise.nextLine();
-		
+		System.out.println(new_exercise_name + " er registrert i treningen din.");
 	}
 }
 

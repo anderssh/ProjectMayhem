@@ -178,19 +178,19 @@ public class MySQLAccess {
         }
         
         public ResultSet addInsideWorkout(String date, String time, String duration, int performance, int form, int sport_ID, String note, String ventilation, int crowd) throws Exception {
-        	
-        	ResultSet trening_ID = null;
-        	trening_ID = addWorkout(date, time, duration, performance, form, sport_ID, note);
-        	
-        	String queryString = "INSERT INTO inneTrening (ventilasjon, tilskuere) VALUES (?,?)";
+        	ResultSet rs_trening_ID = null;
+        	int trening_ID=0;
+        	rs_trening_ID = addWorkout(date, time, duration, performance, form, sport_ID, note);
+        	rs_trening_ID.next();
+        	trening_ID = (int) rs_trening_ID.getLong(1);
+        	String queryString = "INSERT INTO innetrening (trening_ID, ventilasjon, antall_tilskuere) VALUES (?,?,?)";
 		    PreparedStatement prepStat = null;
-        	
 		    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
-		    prepStat.setString( 1, ventilation);
-		    prepStat.setInt( 2, crowd);
+		    prepStat.setInt(1, trening_ID);
+		    prepStat.setString( 2, ventilation);
+		    prepStat.setInt(3, crowd);
 		    prepStat.executeUpdate();
-		    
-		    return trening_ID;
+		    return rs_trening_ID;
         }
         
         public ResultSet addOutsideWorkout(String date, String time, String duration, int performance, int form, int sport_ID, String note, String weatherType,int temperature) throws Exception {
