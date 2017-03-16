@@ -302,8 +302,9 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte ï¿½velsen? [HH:MM] ");
-		String duration = in_exercise.nextLine();
+		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		Scanner in_duration = new Scanner(System.in);
+		String duration = in_duration.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
@@ -336,8 +337,9 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte ï¿½velsen? [HH:MM] ");
-		String duration = in_exercise.nextLine();
+		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		Scanner in_duration = new Scanner(System.in);
+		String duration = in_duration.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,new_exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
