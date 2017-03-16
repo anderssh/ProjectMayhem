@@ -39,6 +39,7 @@ public class Goals {
 					}
 					else if(j > 0){
 						reg.chooseExistingExercise(-1,j);
+						exercise_details_ID = j;
 					}
 						addExercise = false;
 				}

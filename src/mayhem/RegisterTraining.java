@@ -157,7 +157,7 @@ public class RegisterTraining {
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn p� ny idrett");
+				System.out.println("Skriv navn pÂ ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
@@ -259,35 +259,40 @@ public class RegisterTraining {
 			int form = workout_info.nextInt();
 			
 			System.out.println("Hvis du vil, legg til et notat.");
-			String note = workout_info.nextLine();
+			Scanner more = new Scanner(System.in);
+			String note = more.nextLine();
 			
 			template.next();
 			String outin  = template.getString("inneUte");
 			int sport_ID = template.getInt("idrett_ID");
 			int exercise_ID = template.getInt("ovelse_ID");
 			int workout_ID = template.getInt("trening_ID");
-
+			template.beforeFirst();
+			
+			ResultSet rs_workout_id = null;
+			int lol = 0;
+			if (outin.toLowerCase().equals("innetrening")){
+				System.out.println("Hvordan var ventilasjonen?");
+				String ventilation = more.nextLine();
+				System.out.println("Antall tilskuere?");
+				int crowd = more.nextInt();
+				rs_workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
+				lol = (int)rs_workout_id.getLong(1);
+			}else if (outin.toLowerCase().equals("utetrening")){
+				System.out.println("Hvordan var vÊret?");
+				String weatherType = more.nextLine();
+				System.out.println("Hvordan var temperaturen?");
+				int temperature = more.nextInt();
+				
+				rs_workout_id = acc.addOutsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
+				lol = (int)rs_workout_id.getLong(1);
+			}else{
+				System.out.println("Noe gikk galt!!");
+			}
+			
 			while(template.next()){
-				if (outin.toLowerCase().equals("innetrening")){
-					System.out.println("Hvordan var ventilasjonen?");
-					String ventilation = workout_info.nextLine();
-					System.out.println("Antall tilskuere?");
-					int crowd = workout_info.nextInt();
-					
-					ResultSet workout_id= acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
-				}else if (outin.toLowerCase().equals("utetrening")){
-					System.out.println("Hvordan var v�ret?");
-					String weatherType = workout_info.nextLine();
-					System.out.println("Hvordan var temperaturen?");
-					int temperature = workout_info.nextInt();
-					
-					ResultSet workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
-				}else{
-					System.out.println("Noe fucket seg!!");
-				}
-				while(template.next()){
-					chooseExistingExercise(workout_ID,exercise_ID);
-				}
+				exercise_ID = template.getInt("ovelse_ID");
+				chooseExistingExercise(lol,exercise_ID);
 			}
 		}
 }
@@ -302,8 +307,9 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte �velsen? [HH:MM] ");
-		String duration = in_exercise.nextLine();
+		System.out.println("Hvor lenge varte ¯velsen? [HH:MM] ");
+		Scanner in_duration = new Scanner(System.in);
+		String duration = in_duration.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
@@ -336,8 +342,9 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte �velsen? [HH:MM] ");
-		String duration = in_exercise.nextLine();
+		System.out.println("Hvor lenge varte ¯velsen? [HH:MM] ");
+		Scanner in_duration = new Scanner(System.in);
+		String duration = in_duration.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,new_exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
