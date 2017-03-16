@@ -327,7 +327,7 @@ public class MySQLAccess {
         }
         
         public ResultSet getAllExercises() throws Exception{
-        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, beskrivelse, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID;";
+        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, beskrivelse, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID ORDER BY ovelse_ID;";
         	statement = connect.createStatement();                
                 ResultSet exercises = null;
                 exercises = statement.executeQuery(queryString);
