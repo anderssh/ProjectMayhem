@@ -24,7 +24,8 @@ public class RegisterExercise {
             int ID = rs_exercise.getInt("ovelse_ID");
             String ovelse = rs_exercise.getString("navn");
             String description = rs_exercise.getString("beskrivelse");
-            System.out.println( "[" + ID + "]" + "\t" + ovelse + "\t" + description);  
+            System.out.format("[%d]  " +"%-30s%-50s", ID, ovelse, description);
+            System.out.println("");
 		}
 		System.out.println("-------------------------------------------------");
 		System.out.println("");
@@ -63,7 +64,10 @@ public class RegisterExercise {
 	    System.out.println("");
 	    
 	    workoutTypes = acc.getWorkoutType();
-	    System.out.println("Her ser du treningstypene som finnes, velg den som passer til din nye øvelse:");
+	    System.out.println("Her ser du treningstypene som finnes, velg den som passer til din nye øvelsen:");
+	    System.out.println("(Hvis treningstypen ikke finnes foreslår jeg å benytte hovedmenyen for å opprett ny)");
+	    
+	    System.out.println("");
 	    
 		while (workoutTypes.next()) {
             int ID = workoutTypes.getInt("treningstype_ID");
@@ -72,11 +76,30 @@ public class RegisterExercise {
 		}
 		workoutType = in2.nextInt();
 
-	    acc.addExercise(newExerciseName, newDescription, workoutType);
-
-	    System.out.println("Gratulerer! Du har lagt til øvelsen " + newExerciseName);
+		System.out.println("Skriv en liten beskrivelse til for den nye øvelsen (Bør være mindre enn 100 tegn):");
+		
+		Scanner in3 = new Scanner(System.in);
+		newDescription = in3.nextLine();
+		
+		ResultSet thisID = null;
+	    thisID = acc.addExercise(newExerciseName, newDescription, workoutType);
+	    
+	    System.out.println("Hvilke øvelser kan denne nye øvelsen erstatte?");
+	    System.out.println("Skriv in tallet til de aktuelle øvelsene, med linjeskift i mellom. [0] for å avslutte");
+	    
+	    boolean temp = true;
+	    int newSimilarExercise;
+	    while (temp == true) {
+	    	newSimilarExercise = in3.nextInt();
+	    	
+	    	
+	    }
+	    
+	    System.out.println("");
+	    System.out.println("Gratulerer! Du har lagt til øvelsen " + newExerciseName + "!");
 	    System.out.println("");
 	    
+	    displayExercises();
 	}
 }
 	

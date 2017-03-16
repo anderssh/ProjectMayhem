@@ -49,6 +49,7 @@ public class MySQLAccess {
             		queryString = queryString + "LEFT JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
             		queryString = queryString + "LEFT JOIN idrett ON trening.idrett_ID=idrett.idrett_ID ";
             		queryString = queryString + "ORDER BY dato;";
+
             		
             		
                     statement = connect.createStatement();
@@ -101,7 +102,7 @@ public class MySQLAccess {
 
         public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
         	try {
-                String queryString = "SELECT trening.trening_ID, idrett.idrett_ID, idrett.navn AS idrett, 'Innetrening' AS inneUte, ovelse.ovelse_ID, ovelse.navn AS ovelse, ";
+                String queryString = "SELECT trening.trening_ID, idrett.idrett_ID,trening.tid, trening.varighet, idrett.navn AS idrett, 'Innetrening' AS inneUte, ovelse.ovelse_ID, ovelse.navn AS ovelse, ";
                 queryString = queryString + "belastning_kg, antall_set, antall_repetisjoner, ovelse_detaljer.varighet AS ovelse_varighet, ventilasjon, antall_tilskuere  FROM trening ";
                 queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
                 queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID " ;
@@ -126,7 +127,7 @@ public class MySQLAccess {
         
         public ResultSet getOutsideWorkoutOnID(int trening_ID) throws Exception {
         	try {
-                String queryString = "SELECT trening.trening_ID, idrett.idrett_ID, idrett.navn AS idrett, 'utetrening' AS inneUte, ovelse.ovelse_ID, ovelse.navn AS ovelse, ";
+                String queryString = "SELECT trening.trening_ID, trening.tid, trening.varighet, idrett.idrett_ID, idrett.navn AS idrett, 'utetrening' AS inneUte, ovelse.ovelse_ID, ovelse.navn AS ovelse, ";
                 queryString = queryString +  "belastning_kg, antall_set, antall_repetisjoner, ovelse_detaljer.varighet AS ovelse_varighet, vaertype, temperatur  FROM trening ";
                 queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
                 queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
@@ -324,14 +325,9 @@ public class MySQLAccess {
                         System.out.println("ID: " + idrett_id + "      Navn:" + navn);
                 }
         }
-
-        public void addWorkout(ResultSet resultSet, int i, String a) throws SQLException {
-        
-        	
-        }
         
         public ResultSet getAllExercises() throws Exception{
-        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID;";
+        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, beskrivelse, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID;";
         	statement = connect.createStatement();                
                 ResultSet exercises = null;
                 exercises = statement.executeQuery(queryString);
@@ -352,6 +348,37 @@ public class MySQLAccess {
                     throw e;
             }
         }
+        
+        public ResultSet getAllExerciseTypes() throws Exception {
+        	try {
+            		String queryString = "SELECT  * FROM treningstype";
+					statement = connect.createStatement();
+					
+					ResultSet exerciseTypes = null;
+					exerciseTypes = statement.executeQuery(queryString);
+					
+					return exerciseTypes;
+            } 
+            catch (Exception e) {
+                    throw e;
+            }
+        }
+        
+        public ResultSet addExerciseType(String exerciseType) throws Exception {
+			PreparedStatement prepStat = null;
+			String queryString = "INSERT INTO treningstype (navn) VALUES (?)";
+				    
+			prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+			prepStat.setString(1, exerciseType);
+				    
+			prepStat.executeUpdate();
+			ResultSet generatedKey = null;
+		    generatedKey = prepStat.getGeneratedKeys();
+				    
+			return generatedKey;        	
+        }
+        
+        
         
         public ResultSet getWorkoutType() throws SQLException{
         	String queryString = "SELECT * FROM treningstype";
@@ -405,6 +432,17 @@ public class MySQLAccess {
         	prepStat.executeUpdate();
         	
         }
+        
+        public void addSimilarExercise(int exercise_ID_1,int exercise_ID_2) throws SQLException{
+        	PreparedStatement prepStat = null;
+        	String queryString = "INSERT INTO kan_erstatte_ovelse (ovelse_ID_1,ovelse_ID_2) VALUES (?,?)";
+        	prepStat = connect.prepareStatement(queryString);
+        	prepStat.setInt(1, exercise_ID_1);
+        	prepStat.setInt(2, exercise_ID_2);
+        	
+        	prepStat.executeUpdate();    	
+        }
+        
         public void addGoal(int exercise_details_ID, String achieved, String note) throws Exception{
         	PreparedStatement prepStat = null;
         	String queryString = "INSERT INTO maal (ovelse_detaljer_ID, opnadd, notat) VALUES (?,?,?)";
@@ -433,6 +471,7 @@ public class MySQLAccess {
         	     return s;
 
         	}
+        
 	public void setupDatabase() throws FileNotFoundException, IOException, SQLException{
 		try {
 		    Class.forName("com.mysql.jdbc.Driver");
