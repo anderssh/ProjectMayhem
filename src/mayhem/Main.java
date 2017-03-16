@@ -33,6 +33,7 @@ public class Main {
 				case 2: 
 						ResultSet bs = null;
 						MySQLAccess acc = new MySQLAccess();
+						acc.makeConnection();
 						bs = acc.getWorkoutOnID(7);
 						break;
 				case 3: 

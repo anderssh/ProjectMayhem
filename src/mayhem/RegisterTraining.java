@@ -218,20 +218,20 @@ public class RegisterTraining {
 			MySQLAccess acc = new MySQLAccess();
 			int count = metaData.getColumnCount(); //number of column
 			String columnName[] = new String[count];
-
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
 
 			   System.out.println("Skriv inn:" + columnName[i-1]);
 			   	
 
-			   System.out.println(" Skriv inn fÃ¸lgende:" + columnName[i-1]);
+			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
 
 
-			 //  Scanner in = new Scanner(System.in);
-			   String result = in.nextLine();
-			   //addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note)
+			   //Scanner in = new Scanner(System.in);
+			   String result = columnName[i-1];
+			   result = in.nextLine();
 			}
+			//addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note);
 		}
 	}
 	
