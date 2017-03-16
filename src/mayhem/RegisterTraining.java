@@ -58,11 +58,11 @@ public class RegisterTraining {
 	            String sport = rs_workouts.getString("idrett");
 	            String exer = rs_workouts.getString("ovelse");
 	            if (id == idprev){
-	            	System.out.println("\t" + "-" + exer );
+	            	//System.out.println("\t" + "-" + exer );
 	            }else{
-	            	System.out.println("");
+	            	//System.out.println("");
 	            	System.out.println("[" + id + "]" + "\t" + date +  "\t" + sport);
-	            	System.out.println("\t" + "-" + exer );
+	            	//System.out.println("\t" + "-" + exer );
 	            }
 	            idprev = id;
 	        }
@@ -71,17 +71,23 @@ public class RegisterTraining {
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
-			System.out.println("Id" + "\t" +  "Idrett" + "\t" +  "Inne/Ute" + "\t" + "Øvelse"+ "\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
-			System.out.println("-------------------------------------------");
-		    while (rs_workoutOnID.next()) {
-		    	String  outin	= rs_workoutOnID.getString("inneute");
+			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "\t" + "Øvelse" + "\t"+"\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
+			System.out.println("-------------------------------------------------------------------------------------------------------------");
+		    int idprev1 = 0;
+			while (rs_workoutOnID.next()) {
+		    	String  outin	= rs_workoutOnID.getString("inneUte");
 	            String sport	= rs_workoutOnID.getString("idrett");
 	            String  exer	= rs_workoutOnID.getString("ovelse");
 	            int sets  	= rs_workoutOnID.getInt("antall_set");
 	            int reps 	= rs_workoutOnID.getInt("antall_repetisjoner");
 	            
+	            if (id == idprev1){
+	            	System.out.println("\t"  + "\t" + "\t"  + "\t" + "\t" + exer + "\t" + sets + "\t"+"\t"+  reps );
+	            }else{
+	            	System.out.println("[" + id + "]" + "\t" + outin + "\t" + sport + "\t" + exer + "\t" + sets + "\t"+"\t"+ reps );
+	            }
+	            idprev1 = id;
 	            
-	            System.out.println("[" + id + "]" + "\t" + outin + "\t" + sport + "\t" + exer + "\t" + sets+ "\t" + reps );
 				
 		    }
 		    

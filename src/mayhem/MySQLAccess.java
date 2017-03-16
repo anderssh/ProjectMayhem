@@ -54,6 +54,9 @@ public class MySQLAccess {
             }
         }
         
+
+
+
         public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
         	try {
                 String queryString = "SELECT trening.trening_ID, idrett.navn AS idrett, 'Innetrening' AS inneUte, ovelse.navn AS ovelse, ";
@@ -65,6 +68,7 @@ public class MySQLAccess {
                 queryString = queryString + "JOIN innetrening ON trening.trening_ID=innetrening.trening_ID " ;
                 queryString = queryString + " WHERE innetrening.trening_ID= ? ;";
                 PreparedStatement prepStat = null;
+
 				
         		prepStat = connect.prepareStatement(queryString);
 				prepStat.setInt( 1, trening_ID);
