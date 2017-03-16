@@ -81,9 +81,9 @@ public class RegisterTraining {
 	            int load 	= rs_workoutOnID.getInt("belastning_kg");
 	            
 	            if (id == idprev1){
-	            	System.out.println("\t"  + "\t" + "\t"  + "\t" + "\t" + exer + "\t" + sets +"\t"+  reps +"\t"+ load);
+	            	System.out.printf("                                     %10s %10d %10d           %10d \n",exer,sets,reps,load);
 	            }else{
-	            	System.out.println("[" + id + "]" + "\t" + outin + "\t" + sport + "\t" + exer + "\t" + sets +"\t"+ reps+"\t"+ load );
+	            	System.out.printf("%3d. %-20s %-10s %10s %10d %10d           %10d \n", id,outin,sport,exer,sets,reps,load);
 	            }
 	            idprev1 = id;
 	            
