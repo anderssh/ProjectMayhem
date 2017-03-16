@@ -47,7 +47,6 @@ public class MySQLAccess {
             	// Returns result from asking for the workout ID, date, sport and excercises for all workouts.
 
             		String queryString = "SELECT trening.trening_ID, trening.varighet, trening.tid, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
-
             		queryString = queryString + "LEFT JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
             		queryString = queryString + "LEFT JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
             		queryString = queryString + "LEFT JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
@@ -175,10 +174,7 @@ public class MySQLAccess {
 					utet = prepStat.executeQuery();
 					
 					if (innet.next() == false) {
-						System.out.println("Innetrening er false");
-						
 						if (utet.next() == false) {
-							System.out.println("Begge er false");
 						}
 						else { 
 							ResultSet outsideWorkout = null;
