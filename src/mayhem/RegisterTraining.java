@@ -120,10 +120,10 @@ public class RegisterTraining {
 			System.out.println("Dato [YYYY-MM-DD]:");
 			String date = workout_info.nextLine();
 			
-			System.out.println("Tid [HH-MM]:");
+			System.out.println("Tid [HH:MM]:");
 			String time = workout_info.nextLine();
 			
-			System.out.println("Varighet [HH-MM]:");
+			System.out.println("Varighet [HH:MM]:");
 			String duration = workout_info.nextLine();
 			
 			System.out.println("Hvordan var din prestasjon? [1-10]");
@@ -161,10 +161,7 @@ public class RegisterTraining {
 			Scanner in4 = new Scanner(System.in);
 			String note = in4.nextLine();
 			
-			acc.addWorkout(date, time, duration, 1, performance, form, sport_ID, note);
-			
 			System.out.println("Trente du ute[0] eller inne[1]?");
-			
 			boolean invalid = true;
 			int location;
 			String weather;
@@ -180,6 +177,7 @@ public class RegisterTraining {
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
+					acc.addOutsideWorkout(date, time, duration, performance, form, sport_ID, note, weather, temperature);
 					
 				}
 				else if(location==1){
@@ -189,6 +187,7 @@ public class RegisterTraining {
 					ventilation = in2.nextLine();
 					System.out.println("Antall tilskuere?");
 					crowd = in2.nextInt();
+					acc.addInsideWorkout(date, time, duration, performance, form, sport_ID, note, ventilation, crowd);
 				}
 				else{
 					System.out.println("Skriv '0' eller '1'");
@@ -206,13 +205,13 @@ public class RegisterTraining {
 			}
 			
 			
-			/*Scanner in = new Scanner(System.in);
-			int i = in.nextInt();
+			Scanner in5 = new Scanner(System.in);
+			int i = in5.nextInt();
 			rs_exercises = acc.getExerciseOnID(i);
 			while(rs_exercises.next()){
 				String s = rs_exercises.getString("navn");
 				System.out.println("Du har valgt " + s);
-			}*/
+			}
 			
 			
 						
