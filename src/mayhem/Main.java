@@ -23,15 +23,10 @@ public class Main {
 			System.out.println("[3] \t Statistikk ");
 			System.out.println("[4] \t Notater");
 			System.out.println("[5] \t Oppdater mål ");
-			System.out.println("[6] \t Avslutt");
-			System.out.println("[7] \t Sett opp database");
-
-			System.out.println("[5] \t Se tidligere trening ");
 			System.out.println("[6] \t Se / Legg til idrett ");
 			System.out.println("[7] \t Se / Legg til øvelse ");
-			
-			System.out.println("[8] \t Avslutt");
-			System.out.println("[9] \t Sett opp database");
+			System.out.println("[8] \t Sett opp database");
+			System.out.println("[9] \t Avslutt");
 			
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
@@ -59,15 +54,15 @@ public class Main {
 						RegisterSport regSport = new RegisterSport();
 						regSport.displaySports();
 						break;
-				case 7: done = true;
-						break;
 				case 7: 
-						
+						RegisterExercise regEx = new RegisterExercise();
+						regEx.displayExercises();
 						break;
 
 				case 8: 
 						MySQLAccess setup = new MySQLAccess();
 						setup.setupDatabase();
+				case 9:
 						done = true;
 						break;
 				default: 
