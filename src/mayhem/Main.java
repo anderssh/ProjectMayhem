@@ -36,7 +36,8 @@ public class Main {
 						regTraining.startRegister();
 						break;
 				case 2: 
-					
+						Workouts pwork = new Workouts();
+						pwork.prevWorkouts ();
 						break;
 				case 3: 
 						Statistics stats = new Statistics();
