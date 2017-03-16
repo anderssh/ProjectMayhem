@@ -24,7 +24,7 @@ public class Main {
 			System.out.println("[5] \t Oppdater mål ");
 			System.out.println("[6] \t Se / Legg til idrett ");
 			System.out.println("[7] \t Se / Legg til øvelse ");
-			System.out.println(" [8] \t Se / Legg til treningstype ");
+			System.out.println("[8] \t Se / Legg til treningstype ");
 			System.out.println("[9] \t Sett opp database");
 			System.out.println("[10] \t Avslutt");
 			
