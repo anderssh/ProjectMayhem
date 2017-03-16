@@ -269,31 +269,30 @@ public class RegisterTraining {
 			int workout_ID = template.getInt("trening_ID");
 			template.beforeFirst();
 			
-			while(template.next()){
-				if (outin.toLowerCase().equals("innetrening")){
-					System.out.println("Hvordan var ventilasjonen?");
-					String ventilation = more.nextLine();
-					System.out.println("Antall tilskuere?");
-					int crowd = more.nextInt();
-					ResultSet rs_workout_id_out = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
-					int workout_id = (int) rs_workout_id_out.getLong(1);
-					chooseExistingExercise(workout_id,exercise_ID);
-					
-				}else if (outin.toLowerCase().equals("utetrening")){
-					System.out.println("Hvordan var været?");
-					String weatherType = more.nextLine();
-					System.out.println("Hvordan var temperaturen?");
-					int temperature = more.nextInt();
-					
-					ResultSet rs_workout_id = acc.addOutsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
-					int workout_id = (int) rs_workout_id.getLong(1);
-					chooseExistingExercise(workout_id,exercise_ID);
-					
-				}else{
-					System.out.println("Noe gikk galt!!");
-				}
-			
+			ResultSet rs_workout_id = null;
+			int lol = 0;
+			if (outin.toLowerCase().equals("innetrening")){
+				System.out.println("Hvordan var ventilasjonen?");
+				String ventilation = more.nextLine();
+				System.out.println("Antall tilskuere?");
+				int crowd = more.nextInt();
+				rs_workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
+				lol = (int)rs_workout_id.getLong(1);
+			}else if (outin.toLowerCase().equals("utetrening")){
+				System.out.println("Hvordan var været?");
+				String weatherType = more.nextLine();
+				System.out.println("Hvordan var temperaturen?");
+				int temperature = more.nextInt();
 				
+				rs_workout_id = acc.addOutsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
+				lol = (int)rs_workout_id.getLong(1);
+			}else{
+				System.out.println("Noe gikk galt!!");
+			}
+			
+			while(template.next()){
+				exercise_ID = template.getInt("ovelse_ID");
+				chooseExistingExercise(lol,exercise_ID);
 			}
 		}
 }
