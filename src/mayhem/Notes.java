@@ -17,7 +17,8 @@ public class Notes {
 				System.out.println(trening_id + "\t" + date);
 			}
 			System.out.println("Velg hva du vil se\n");
-	
+			System.out.println("Velg hva du viasadsfasdfdflasdf se\n");
+			System.out.println("Velg hva du viasdfasdasdasdfasdfasdfliuhprihasprgoihlfhlølffl se\na");
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
 			ResultSet rs_selected_notes = null; 
