@@ -12,7 +12,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		//PropertyHandling ph = new PropertyHandling();
 		//ph.CreateDatabaseProperties();
-
 		boolean done = false;
 		while(!done){
 			System.out.println("Velg handling: \n");
@@ -38,7 +37,7 @@ public class Main {
 						break;
 				case 3: 
 						Statistics stats = new Statistics();
-						stats.viewStats();
+						stats.statsMenu();
 						break;
 				case 4:	
 						Notes note = new Notes();
