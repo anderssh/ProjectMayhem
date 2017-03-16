@@ -4,17 +4,15 @@ import mayhem.PropertyHandling;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
 import mayhem.Notes;
-import mayhem.Test_create_db;
 import mayhem.ScriptRunner;
 import java.sql.*;
 
 public class Main {
-	
-	
 
-	public static void main(String[] args) throws Exception {		
+	public static void main(String[] args) throws Exception {
 		//PropertyHandling ph = new PropertyHandling();
 		//ph.CreateDatabaseProperties();
+
 		boolean done = false;
 		while(!done){
 			System.out.println("Velg handling: \n");

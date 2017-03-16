@@ -399,15 +399,17 @@ public class MySQLAccess {
 	public void setupDatabase() throws FileNotFoundException, IOException, SQLException{
 		try {
 		    Class.forName("com.mysql.jdbc.Driver");
-		    connect = DriverManager.getConnection("jdbc:mysql://localhost/test1?autoReconnect=true&useSSL=false","root", "kukksnik");
+		    connect = DriverManager.getConnection("jdbc:mysql://localhost/INSERT SCHEMA NAME?autoReconnect=true&useSSL=false","INSERT USERNAME HERE", "INSERT PASSWORD HERE");
 		} catch (ClassNotFoundException e) {
 		    System.err.println("Unable to get mysql driver: " + e);
 		} catch (SQLException e) {
 		    System.err.println("Unable to connect to server: " + e);
 		}
 		ScriptRunner runner = new ScriptRunner(connect, false, false);
+		//////////////PATH TO .sql files /////////////////
 		String path1 ="C:\\Users\\vetle\\Downloads\\setupDB.sql";
 		String path2 ="C:\\Users\\vetle\\Downloads\\populate_database.sql";
+///		///////////PATH TO .sql files /////////////////
 		String setup_database = path1.replace("\\", "/");
 		String populate_database = path2.replace("\\", "/");
 		//String file = "C:\\\Users\\\vetle\\\Downloads\\\setupDB.sql";
