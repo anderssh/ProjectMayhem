@@ -8,8 +8,8 @@ public class RegisterTraining {
 	
 	public void startRegister () throws Exception {
 	
-	System.out.println("Nï¿½ skal du registrere en ny trening");
-	System.out.println("ï¿½nsker du ï¿½ benytte en mal? [J/N]");
+	System.out.println("NÃ¥ skal du registrere en ny trening");
+	System.out.println("Ã˜nsker du Ã¥ benytte en mal? [J/N]");
 	
 	Scanner in = new Scanner(System.in);
 	
@@ -266,7 +266,7 @@ public class RegisterTraining {
 			int sport_ID = template.getInt("idrett_ID");
 			int exercise_ID = template.getInt("ovelse_ID");
 			int workout_ID = template.getInt("trening_ID");
-			System.out.println("wæææææææ");
+
 			while(template.next()){
 				if (outin.toLowerCase().equals("innetrening")){
 					System.out.println("Hvordan var ventilasjonen?");
