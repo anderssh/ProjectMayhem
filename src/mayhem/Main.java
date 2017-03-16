@@ -45,7 +45,6 @@ public class Main {
 				default: 
 					System.out.println("Skriv inn tall fra 1-6");
 			}
-			in.close();
 		}
 		
 		System.out.print("Takk for idag");

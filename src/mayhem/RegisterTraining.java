@@ -112,6 +112,8 @@ public class RegisterTraining {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Velkommen! Her kan du skrive inn resultatene dine for dagens trening!");
 		if (template == null){
+			ResultSet rs_workout_ID = null;
+			int workout_ID = 0;
 			ResultSet rs_exercises = null;
 			MySQLAccess acc = new MySQLAccess();
 			acc.makeConnection();
@@ -127,12 +129,12 @@ public class RegisterTraining {
 			String duration = workout_info.nextLine();
 			
 			System.out.println("Hvordan var din prestasjon? [1-10]");
-			String performance = workout_info.nextLine();
+			int performance = workout_info.nextInt();
 			
-			System.out.println("Hvordan følte du deg? [1-10]");
-			String form = workout_info.nextLine();
+			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
+			int form = workout_info.nextInt();
 			
-			System.out.println("Bedrev du en av disse idretten? [0] for å legge til ny idrett.");
+			System.out.println("Bedrev du en av disse idretten? [0] for ï¿½ legge til ny idrett.");
 			ResultSet rs_all_sports = acc.getAllSports();
 			int sport_ID = 0;
 			String sport_name;
@@ -146,7 +148,7 @@ public class RegisterTraining {
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn på ny idrett");
+				System.out.println("Skriv navn pï¿½ ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
@@ -173,50 +175,73 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var været?");
+					System.out.println("Hvordan var vÃ¦ret?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
-					acc.addOutsideWorkout(date, time, duration, performance, form, sport_ID, note, weather, temperature);
-					
+					rs_workout_ID = acc.addOutsideWorkout(date, time, duration, performance, form, sport_ID, note, weather, temperature);
+					//rs_workout_ID.next();
+					workout_ID = (int) rs_workout_ID.getLong(1);
 				}
-				else if(location==1){
+				else if(location==1)
+				{
 					Scanner in2 = new Scanner(System.in);
 					invalid = false;
 					System.out.println("Hvordan var ventilasjonen?");
 					ventilation = in2.nextLine();
 					System.out.println("Antall tilskuere?");
 					crowd = in2.nextInt();
-					acc.addInsideWorkout(date, time, duration, performance, form, sport_ID, note, ventilation, crowd);
+					rs_workout_ID = acc.addInsideWorkout(date, time, duration, performance, form, sport_ID, note, ventilation, crowd);
+					//rs_workout_ID.next();
+					workout_ID = (int) rs_workout_ID.getLong(1);
 				}
 				else{
 					System.out.println("Skriv '0' eller '1'");
 					}
 			}
 			
-			
-			
-			System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til ny øvelse.\n");
-			rs_exercises = acc.getAllExercises();
-			while(rs_exercises.next()){
-				int exercise_id = rs_exercises.getInt("ovelse_ID");
-				String exercise_name = rs_exercises.getString("navn");
-				System.out.println("[" + exercise_id + "]" + "\t" + exercise_name);
+			boolean addExercise = true;
+			while (addExercise){
+				System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til en øvelse som ikke finnes.\n");
+				rs_exercises = acc.getAllExercises();
+				while(rs_exercises.next()){
+					int exercise_id = rs_exercises.getInt("ovelse_ID");
+					String exercise_name = rs_exercises.getString("navn");
+					System.out.println("[" + exercise_id + "]" + "\t" + exercise_name);
+				}
+				Scanner exercise = new Scanner(System.in);
+				int i = exercise.nextInt();
+				if(i == 0){
+					registerNewExercise(workout_ID);
+				}
+				else if(i > 0){
+					chooseExistingExercise(i);
+				}
+				System.out.println("[1] for å legge til flere øvelser.");
+				System.out.println("[2] Ferdig.");
+				int ex = exercise.nextInt();
+				if(ex == 2){
+					addExercise = false;
+				}
 			}
+				
+		}
 			
 			
-			Scanner in5 = new Scanner(System.in);
+			
+			
+			/*Scanner in5 = new Scanner(System.in);
 			int i = in5.nextInt();
 			rs_exercises = acc.getExerciseOnID(i);
 			while(rs_exercises.next()){
 				String s = rs_exercises.getString("navn");
 				System.out.println("Du har valgt " + s);
-			}
+			}*/
 			
 			
 						
 			
-		}else{
+		else{
 			ResultSetMetaData metaData = template.getMetaData();
 			MySQLAccess acc = new MySQLAccess();
 			int count = metaData.getColumnCount(); //number of column
@@ -224,7 +249,7 @@ public class RegisterTraining {
 
 			for (int i = 1; i <= count; i++){
 			   columnName[i-1] = metaData.getColumnLabel(i);
-			   System.out.println(" Skriv inn følgende:" + columnName[i-1]);
+			   System.out.println(" Skriv inn fÃ¸lgende:" + columnName[i-1]);
 
 			 //  Scanner in = new Scanner(System.in);
 			   String result = in.nextLine();
@@ -232,4 +257,46 @@ public class RegisterTraining {
 		}
 	}
 	
+	public void chooseExistingExercise(int i){
+		
+		
+	}
+	public void registerNewExercise(int workout_ID) throws Exception{
+		MySQLAccess acc = new MySQLAccess();
+		acc.makeConnection();
+		System.out.println("Hva heter øvelsen?");
+		Scanner in_exercise = new Scanner(System.in);
+		String new_exercise_name = in_exercise.nextLine();
+		System.out.println("Gi en kort beskrivelse av øvelsen.");
+		String new_exercise_description = in_exercise.nextLine();
+		System.out.println("Hviken type øvelse er det?");
+		ResultSet rs_ex_type = acc.getWorkoutType();
+		while(rs_ex_type.next()){
+			int type_ID = rs_ex_type.getInt("treningstype_ID");
+			String type_name = rs_ex_type.getString("navn");
+			System.out.println("[" + type_ID + "]" + "\t" + type_name);
+		}
+		int new_exercise_type_ID = in_exercise.nextInt();
+		ResultSet rs_ex = acc.addExercise(new_exercise_name, new_exercise_description, new_exercise_type_ID);
+		rs_ex.next();
+    	int new_exercise_ID= (int) rs_ex.getLong(1);
+		System.out.println("Belastning [kg]: ");
+		int load = in_exercise.nextInt();
+		System.out.println("Antall set: ");
+		int set = in_exercise.nextInt();
+		System.out.println("Antall reps: ");
+		int rep = in_exercise.nextInt();
+		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		String duration = in_exercise.nextLine();
+		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,new_exercise_ID);
+		rs_exercise_details.next();
+		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
+		acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
+		//acc.addExerciseToWorkout()
+		//System.out.println(new_exercise_name + " er registrert i treningen din.");
+		//String exercise_description = in_exercise.nextLine();
+		
+	}
 }
+
+
