@@ -1,11 +1,10 @@
 package mayhem;
 
 import mayhem.PropertyHandling;
-import mayhem.MySQLAccess;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
 import mayhem.Notes;
-import java.sql.*;
+import mayhem.RegisterSport;
 public class Main {
 	
 	
@@ -21,7 +20,8 @@ public class Main {
 			System.out.println("[3] \t Statistikk ");
 			System.out.println("[4] \t Notater");
 			System.out.println("[5] \t Se tidligere trening ");
-			System.out.println("[6] \t Avslutt");
+			System.out.println("[6] \t Se / Legg til idrett ");
+			System.out.println("[7] \t Avslutt");
 			
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
@@ -31,12 +31,10 @@ public class Main {
 						regTraining.startRegister();
 						break;
 				case 2: 
-						ResultSet bs = null;
-						MySQLAccess acc = new MySQLAccess();
-						acc.makeConnection();
-						bs = acc.getWorkoutOnID(8);
+					
 						break;
 				case 3: 
+						
 						break;
 				case 4:	
 						Notes note = new Notes();
@@ -44,10 +42,14 @@ public class Main {
 						break;
 				case 5: 
 						break;
-				case 6: done = true;
+				case 6: 
+						RegisterSport regSport = new RegisterSport();
+						regSport.displaySports();
+						break;
+				case 7: done = true;
 						break;
 				default: 
-					System.out.println("Skriv inn tall fra 1-6");
+					System.out.println("Skriv inn tall fra 1-7");
 			}
 		}
 		
