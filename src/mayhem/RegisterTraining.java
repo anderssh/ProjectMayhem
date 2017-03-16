@@ -237,13 +237,6 @@ public class RegisterTraining {
 		}
 			
 		else{
-			
-			template.next();
-			String outin  = template.getString("inneUte");
-			int sport_ID = template.getInt("idrett_ID");
-			int exercise_ID = template.getInt("ovelse_ID");
-			int workout_ID = template.getInt("trening_ID");
-			
 			ResultSet rs_workout_ID = null;
 			ResultSet rs_exercises = null;
 			MySQLAccess acc = new MySQLAccess();
@@ -268,28 +261,34 @@ public class RegisterTraining {
 			System.out.println("Hvis du vil, legg til et notat.");
 			String note = workout_info.nextLine();
 			
-			
-			if (outin == "Innetrening"){
-				System.out.println("Hvordan var ventilasjonen?");
-				String ventilation = workout_info.nextLine();
-				System.out.println("Antall tilskuere?");
-				int crowd = workout_info.nextInt();
-				
-				ResultSet workout_id= acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
-			}else if (outin == "Utetrening"){
-				System.out.println("Hvordan var vï¿½ret?");
-				String weatherType = workout_info.nextLine();
-				System.out.println("Hvordan var temperaturen?");
-				int temperature = workout_info.nextInt();
-				
-				ResultSet workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
-			}else{
-				System.out.println("Noe fucket seg!!");
-			}
+			template.next();
+			String outin  = template.getString("inneUte");
+			int sport_ID = template.getInt("idrett_ID");
+			int exercise_ID = template.getInt("ovelse_ID");
+			int workout_ID = template.getInt("trening_ID");
+			System.out.println("wæææææææ");
 			while(template.next()){
-				chooseExistingExercise(workout_ID,exercise_ID);
+				if (outin.toLowerCase().equals("innetrening")){
+					System.out.println("Hvordan var ventilasjonen?");
+					String ventilation = workout_info.nextLine();
+					System.out.println("Antall tilskuere?");
+					int crowd = workout_info.nextInt();
+					
+					ResultSet workout_id= acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
+				}else if (outin.toLowerCase().equals("utetrening")){
+					System.out.println("Hvordan var vï¿½ret?");
+					String weatherType = workout_info.nextLine();
+					System.out.println("Hvordan var temperaturen?");
+					int temperature = workout_info.nextInt();
+					
+					ResultSet workout_id = acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,weatherType,temperature);
+				}else{
+					System.out.println("Noe fucket seg!!");
+				}
+				while(template.next()){
+					chooseExistingExercise(workout_ID,exercise_ID);
+				}
 			}
-			
 		}
 }
 	
@@ -308,9 +307,11 @@ public class RegisterTraining {
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
-		acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
+		if(workout_ID != -1){
+			acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
+		}
 	}
-	public void registerNewExercise(int workout_ID) throws Exception{
+	public int registerNewExercise(int workout_ID) throws Exception{
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
 		System.out.println("Hva heter ï¿½velsen?");
@@ -340,8 +341,12 @@ public class RegisterTraining {
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,new_exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
-		acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
-		System.out.println(new_exercise_name + " er registrert i treningen din.");
+		
+		if(workout_ID != -1){
+			acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
+			System.out.println(new_exercise_name + " er registrert i treningen din.");
+		}
+			return new_exercise_ID;
 	}
 }
 
