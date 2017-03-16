@@ -21,7 +21,9 @@ public class Main {
 			System.out.println("[4] \t Notater");
 			System.out.println("[5] \t Se tidligere trening ");
 			System.out.println("[6] \t Se / Legg til idrett ");
-			System.out.println("[7] \t Avslutt");
+			System.out.println("[7] \t Se / Legg til idrett ");
+			
+			System.out.println("[8] \t Avslutt");
 			
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
@@ -48,8 +50,10 @@ public class Main {
 						break;
 				case 7: done = true;
 						break;
+				case 8: done = true;
+				break;
 				default: 
-					System.out.println("Skriv inn tall fra 1-7");
+					System.out.println("Skriv inn tall fra 1-8");
 			}
 		}
 		

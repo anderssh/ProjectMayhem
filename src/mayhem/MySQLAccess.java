@@ -283,25 +283,6 @@ public class MySQLAccess {
                 }
         }
 
-//         You need to close the resultSet
-        private void close() {
-                try {
-                        if (resultSet != null) {
-                                resultSet.close();
-                        }
-
-                        if (statement != null) {
-                                statement.close();
-                        }
-
-                        if (connect != null) {
-                                connect.close();
-                        }
-                } catch (Exception e) {
-
-                }
-        }
-
         public void addWorkout(ResultSet resultSet, int i, String a) throws SQLException {
         
         	

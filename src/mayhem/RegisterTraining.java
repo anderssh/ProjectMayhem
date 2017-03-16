@@ -8,8 +8,8 @@ public class RegisterTraining {
 	
 	public void startRegister () throws Exception {
 	
-	System.out.println("Nå skal du registrere en ny trening");
-	System.out.println("Ønsker du å benytte en mal? [J/N]");
+	System.out.println("Nï¿½ skal du registrere en ny trening");
+	System.out.println("ï¿½nsker du ï¿½ benytte en mal? [J/N]");
 	
 	Scanner in = new Scanner(System.in);
 	
@@ -67,11 +67,11 @@ public class RegisterTraining {
 	            idprev = id;
 	        }
 		    System.out.println("");
-		    System.out.println("Skriv inn en [id] for å utforske en spesifikk trening:");
+		    System.out.println("Skriv inn en [id] for ï¿½ utforske en spesifikk trening:");
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
-			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "\t" + "Øvelse" + "\t"+"\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
+			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "\t" + "ï¿½velse" + "\t"+"\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
 			System.out.println("-------------------------------------------------------------------------------------------------------------");
 		    int idprev1 = 0;
 			while (rs_workoutOnID.next()) {
@@ -90,6 +90,8 @@ public class RegisterTraining {
 	            
 				
 		    }
+			
+			rs_workoutOnID.beforeFirst();
 		    
 		    System.out.println("");
 		    System.out.println("Vil du bruke denne treningen som mal?(j/n)");
@@ -138,10 +140,10 @@ public class RegisterTraining {
 			System.out.println("Hvordan var din prestasjon? [1-10]");
 			int performance = workout_info.nextInt();
 			
-			System.out.println("Hvordan følte du deg? [1-10]");
+			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
 			int form = workout_info.nextInt();
 			
-			System.out.println("Bedrev du en av disse idrettene? Tast [0] for å legge til ny idrett.");
+			System.out.println("Bedrev du en av disse idrettene? Tast [0] for ï¿½ legge til ny idrett.");
 			ResultSet rs_all_sports = acc.getAllSports();
 			int sport_ID = 0;
 			String sport_name;
@@ -155,7 +157,7 @@ public class RegisterTraining {
 			int sport_type = workout_info.nextInt();
 			String new_sport;
 			if(sport_type == 0){
-				System.out.println("Skriv navn på ny idrett");
+				System.out.println("Skriv navn pï¿½ ny idrett");
 				Scanner in3 = new Scanner(System.in);
 				new_sport = in3.nextLine();
 				System.out.println(new_sport);
@@ -182,7 +184,7 @@ public class RegisterTraining {
 				if (location==0){
 					Scanner in1 = new Scanner(System.in);
 					invalid = false;
-					System.out.println("Hvordan var været?");
+					System.out.println("Hvordan var vï¿½ret?");
 					weather = in1.nextLine();
 					System.out.println("Hva var temperaturen?");
 					temperature = in1.nextInt();
@@ -209,7 +211,7 @@ public class RegisterTraining {
 			
 			boolean addExercise = true;
 			while (addExercise){
-				System.out.println("Her er alle øvelsene du kan velge i. [0] for å legge til en øvelse som ikke finnes.\n");
+				System.out.println("Her er alle ï¿½velsene du kan velge i. [0] for ï¿½ legge til en ï¿½velse som ikke finnes.\n");
 				rs_exercises = acc.getAllExercises();
 				while(rs_exercises.next()){
 					int exercise_id = rs_exercises.getInt("ovelse_ID");
@@ -224,7 +226,7 @@ public class RegisterTraining {
 				else if(i > 0){
 					chooseExistingExercise(workout_ID,i);
 				}
-				System.out.println("[1] for å legge til flere øvelser.");
+				System.out.println("[1] for ï¿½ legge til flere ï¿½velser.");
 				System.out.println("[2] Ferdig.");
 				int ex = exercise.nextInt();
 				if(ex == 2){
@@ -236,6 +238,7 @@ public class RegisterTraining {
 			
 		else{
 			
+			template.next();
 			String outin  = template.getString("inneUte");
 			int sport_ID = template.getInt("idrett_ID");
 			int exercise_ID = template.getInt("ovelse_ID");
@@ -259,7 +262,7 @@ public class RegisterTraining {
 			System.out.println("Hvordan var din prestasjon? [1-10]");
 			int performance = workout_info.nextInt();
 			
-			System.out.println("Hvordan følte du deg? [1-10]");
+			System.out.println("Hvordan fï¿½lte du deg? [1-10]");
 			int form = workout_info.nextInt();
 			
 			System.out.println("Hvis du vil, legg til et notat.");
@@ -274,7 +277,7 @@ public class RegisterTraining {
 				
 				ResultSet workout_id= acc.addInsideWorkout(date,time,duration,performance,form,sport_ID,note,ventilation,crowd);
 			}else if (outin == "Utetrening"){
-				System.out.println("Hvordan var været?");
+				System.out.println("Hvordan var vï¿½ret?");
 				String weatherType = workout_info.nextLine();
 				System.out.println("Hvordan var temperaturen?");
 				int temperature = workout_info.nextInt();
@@ -300,7 +303,7 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		System.out.println("Hvor lenge varte ï¿½velsen? [HH:MM] ");
 		String duration = in_exercise.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,exercise_ID);
 		rs_exercise_details.next();
@@ -310,12 +313,12 @@ public class RegisterTraining {
 	public void registerNewExercise(int workout_ID) throws Exception{
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
-		System.out.println("Hva heter øvelsen?");
+		System.out.println("Hva heter ï¿½velsen?");
 		Scanner in_exercise = new Scanner(System.in);
 		String new_exercise_name = in_exercise.nextLine();
-		System.out.println("Gi en kort beskrivelse av øvelsen.");
+		System.out.println("Gi en kort beskrivelse av ï¿½velsen.");
 		String new_exercise_description = in_exercise.nextLine();
-		System.out.println("Hviken type øvelse er det?");
+		System.out.println("Hviken type ï¿½velse er det?");
 		ResultSet rs_ex_type = acc.getWorkoutType();
 		while(rs_ex_type.next()){
 			int type_ID = rs_ex_type.getInt("treningstype_ID");
@@ -332,7 +335,7 @@ public class RegisterTraining {
 		int set = in_exercise.nextInt();
 		System.out.println("Antall reps: ");
 		int rep = in_exercise.nextInt();
-		System.out.println("Hvor lenge varte øvelsen? [HH:MM] ");
+		System.out.println("Hvor lenge varte ï¿½velsen? [HH:MM] ");
 		String duration = in_exercise.nextLine();
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,new_exercise_ID);
 		rs_exercise_details.next();
