@@ -32,20 +32,6 @@ public class MySQLAccess {
             
             connect = dataSource.getConnection();	
         }
-
-        public ResultSet getAllWorkouts1() throws Exception {
-            try {   
-            		String queryString = "SELECT trening_ID, dato FROM trening";
-                    statement = connect.createStatement();
-                   // System.out.println("try-getAllWorkouts");
-                    ResultSet workouts = null;
-                    workouts = statement.executeQuery(queryString);
-                    return workouts;
-            } 
-            catch (Exception e) {
-                    throw e;
-            }
-        }
         
         public ResultSet getAllWorkouts() throws Exception {
             try {   
@@ -99,25 +85,56 @@ public class MySQLAccess {
             }
         }
         
-        public ResultSet addWorkout(String date, String time, String duration, int num_exercises, String performance, String form, int sport_ID, String note) throws Exception {
+        public ResultSet addWorkout(String date, String time, String duration, String performance, String form, int sport_ID, String note) throws Exception {
 	        		String queryString = "INSERT INTO trening (dato,tid,varighet,antall_ovelser, prestasjon, personlig_form, idrett_ID, notat) VALUES (?,?,?,?,?,?,?,?)";
 				    PreparedStatement prepStat = null;
 				    
 				    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
-				    prepStat.setString(1, date);
-				    prepStat.setString(2, time);
-				    prepStat.setString(3, duration);
-				    prepStat.setInt(4, num_exercises);
-				    prepStat.setString(5, performance);
-				    prepStat.setString(6, form);
-				    prepStat.setInt(7, sport_ID);
-				    prepStat.setString(8, note);
+				    prepStat.setString( 1, date);
+				    prepStat.setString( 2, time);
+				    prepStat.setString( 3, duration);
+				    prepStat.setString( 4, performance);
+				    prepStat.setString( 5, form);
+				    prepStat.setInt( 	6, sport_ID);
+				    prepStat.setString( 7, note);
 				    
 				    prepStat.executeUpdate();
 				    ResultSet generatedKey = null;
 				    generatedKey = prepStat.getGeneratedKeys();
 				    
 				    return generatedKey;	            
+        }
+        
+        public ResultSet addInsideWorkout(String date, String time, String duration, String performance, String form, int sport_ID, String note, String ventilation, int crowd) throws Exception {
+        	
+        	ResultSet trening_ID = null;
+        	trening_ID = addWorkout(date, time, duration, performance, form, sport_ID, note);
+        	
+        	String queryString = "INSERT INTO inneTrening (ventilasjon, tilskuere) VALUES (?,?)";
+		    PreparedStatement prepStat = null;
+        	
+		    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+		    prepStat.setString( 1, ventilation);
+		    prepStat.setInt( 2, crowd);
+		    prepStat.executeUpdate();
+		    
+		    return trening_ID;
+        }
+        
+        public ResultSet addOutsideWorkout(String date, String time, String duration, String performance, String form, int sport_ID, String note, String weatherType,int temperature) throws Exception {
+        	
+        	ResultSet trening_ID = null;
+        	trening_ID = addWorkout(date, time, duration, performance, form, sport_ID, note);
+        	
+        	String queryString = "INSERT INTO inneTrening (vaerType, temperatur) VALUES (?,?)";
+		    PreparedStatement prepStat = null;
+        	
+		    prepStat = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+		    prepStat.setString( 1, weatherType);
+		    prepStat.setInt( 2, temperature);
+		    prepStat.executeUpdate();
+		    
+		    return trening_ID;
         }
         
         public ResultSet getAllSports() throws Exception {
