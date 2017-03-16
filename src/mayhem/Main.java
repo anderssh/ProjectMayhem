@@ -5,7 +5,7 @@ import mayhem.MySQLAccess;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
 import mayhem.Notes;
-
+import java.sql.*;
 public class Main {
 	
 	
@@ -31,6 +31,10 @@ public class Main {
 						regTraining.startRegister();
 						break;
 				case 2: 
+						ResultSet bs = null;
+						MySQLAccess acc = new MySQLAccess();
+						acc.makeConnection();
+						bs = acc.getWorkoutOnID(8);
 						break;
 				case 3: 
 						break;

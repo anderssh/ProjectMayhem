@@ -54,21 +54,96 @@ public class MySQLAccess {
             }
         }
         
+        public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
+        	try {
+                String queryString = "SELECT trening.trening_ID, idrett.navn AS idrett, 'Innetrening' AS inneUte, ovelse.navn AS ovelse, ";
+                queryString = queryString + "belastning_kg, antall_set, antall_repetisjoner, ovelse_detaljer.varighet AS ovelse_varighet, ventilasjon, antall_tilskuere  FROM trening ";
+                queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
+                queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID " ;
+                queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID " ;
+                queryString = queryString + "JOIN idrett ON trening.idrett_ID=idrett.idrett_ID " ;
+                queryString = queryString + "JOIN innetrening ON trening.trening_ID=innetrening.trening_ID " ;
+                queryString = queryString + " WHERE innetrening.trening_ID= ? ;";
+                PreparedStatement prepStat = null;
+				
+        		prepStat = connect.prepareStatement(queryString);
+				prepStat.setInt( 1, trening_ID);
+        		
+				ResultSet innetrening = null;
+				innetrening = prepStat.executeQuery();
+				return innetrening;
+        } 
+        catch (Exception e) {
+                throw e;
+        }
+        }
+        
+        public ResultSet getOutsideWorkoutOnID(int trening_ID) throws Exception {
+        	try {
+                String queryString = "SELECT trening.trening_ID, idrett.navn AS idrett, 'utetrening' AS inneUte, ovelse.navn AS ovelse, ";
+                queryString = queryString +  "belastning_kg, antall_set, antall_repetisjoner, ovelse_detaljer.varighet AS ovelse_varighet, vaertype, temperatur  FROM trening ";
+                queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
+                queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
+                queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
+                queryString = queryString + "JOIN idrett ON trening.idrett_ID=idrett.idrett_ID ";
+                queryString = queryString + "JOIN utetrening ON trening.trening_ID=utetrening.trening_ID ";
+                queryString = queryString + " WHERE utetrening.trening_ID= ? ;";
+                PreparedStatement prepStat = null;
+        			
+        		prepStat = connect.prepareStatement(queryString);
+        			prepStat.setInt( 1, trening_ID);
+        		
+        			ResultSet utetrening = null;
+        			utetrening = prepStat.executeQuery();
+        			return utetrening;
+        } 
+        catch (Exception e) {
+                throw e;
+        }
+        }
         
         public ResultSet getWorkoutOnID(int trening_ID) throws Exception {
         	try {
-            		String queryString = "SELECT  * FROM trening WHERE trening_ID="+trening_ID;
-					statement = connect.createStatement();
+            		String queryString = "SELECT trening.trening_ID FROM trening JOIN innetrening ON trening.trening_ID=innetrening.trening_ID";
+            		queryString = queryString + " WHERE innetrening.trening_ID= ? ;";
+            		PreparedStatement prepStat = null;
+            		
+					prepStat = connect.prepareStatement(queryString);
+					prepStat.setInt( 1, trening_ID);
+
+					ResultSet innet = null;
+					innet = prepStat.executeQuery();
 					
-					ResultSet workout = null;
-					workout = statement.executeQuery(queryString);
+            		queryString = "SELECT trening.trening_ID FROM trening JOIN utetrening ON trening.trening_ID=utetrening.trening_ID";
+            		queryString = queryString + " WHERE utetrening.trening_ID= ? ;";
+            		
+					prepStat = connect.prepareStatement(queryString);
+					prepStat.setInt( 1, trening_ID);
+
+					ResultSet utet = null;
+					utet = prepStat.executeQuery();
 					
-					return workout;
+					if (innet.next() == false) {
+						System.out.println("Innetrening er false");
+						
+						if (utet.next() == false) {
+							System.out.println("Begge er false");
+						}
+						else { 
+							ResultSet outsideWorkout = null;
+							outsideWorkout = getOutsideWorkoutOnID(trening_ID);
+							return outsideWorkout;
+						}
+					}
+					ResultSet insideWorkout = null;
+					insideWorkout = getInsideWorkoutOnID(trening_ID);
+					return insideWorkout;
             } 
             catch (Exception e) {
                     throw e;
             }
         }
+        
         
         public ResultSet getWorkoutsWithNotes() throws Exception {
         	try {
