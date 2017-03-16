@@ -1,13 +1,13 @@
 package mayhem;
 
 import mayhem.PropertyHandling;
-import mayhem.MySQLAccess;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
 import mayhem.Notes;
 import mayhem.Test_create_db;
 import mayhem.ScriptRunner;
 import java.sql.*;
+
 public class Main {
 	
 	
@@ -25,6 +25,13 @@ public class Main {
 			System.out.println("[5] \t Oppdater mål ");
 			System.out.println("[6] \t Avslutt");
 			System.out.println("[7] \t Sett opp database");
+
+			System.out.println("[5] \t Se tidligere trening ");
+			System.out.println("[6] \t Se / Legg til idrett ");
+			System.out.println("[7] \t Se / Legg til øvelse ");
+			
+			System.out.println("[8] \t Avslutt");
+			System.out.println("[9] \t Sett opp database");
 			
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
@@ -34,10 +41,7 @@ public class Main {
 						regTraining.startRegister();
 						break;
 				case 2: 
-						ResultSet bs = null;
-						MySQLAccess acc = new MySQLAccess();
-						acc.makeConnection();
-						bs = acc.getWorkoutOnID(8);
+					
 						break;
 				case 3: 
 						Statistics stats = new Statistics();
@@ -51,14 +55,23 @@ public class Main {
 						Goals goals = new Goals();
 						goals.updateGoal();
 						break;
-				case 6: done = true;
+				case 6: 
+						RegisterSport regSport = new RegisterSport();
+						regSport.displaySports();
+						break;
+				case 7: done = true;
 						break;
 				case 7: 
+						
+						break;
+
+				case 8: 
 						MySQLAccess setup = new MySQLAccess();
 						setup.setupDatabase();
+						done = true;
 						break;
 				default: 
-					System.out.println("Skriv inn tall fra 1-6");
+					System.out.println("Skriv inn tall fra 1-9");
 			}
 		}
 		
