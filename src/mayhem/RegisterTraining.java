@@ -158,7 +158,7 @@ public class RegisterTraining {
 			Scanner in4 = new Scanner(System.in);
 			String note = in4.nextLine();
 			
-			acc.addWorkout(date, time, duration, 1, performance, form, sport_ID, note);
+			acc.addWorkout(date, time, duration, performance, form, sport_ID, note);
 			
 			System.out.println("Trente du ute[0] eller inne[1]?");
 			
