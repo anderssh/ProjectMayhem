@@ -1,3 +1,4 @@
+
 package mayhem;
 
 import java.sql.ResultSet;
@@ -12,21 +13,22 @@ public class RegisterExercise {
 		acc = new MySQLAccess();
 		acc.makeConnection();
 		
-		ResultSet rs_sports = null;
-		rs_sports = acc.getAllSports();
+		ResultSet rs_exercise = null;
+		rs_exercise = acc.getAllExercises();
 		
-		System.out.println("Her ser du alle idrettene som finnes i systemet nå:");
+		System.out.println("Her ser du alle øvelsene som finnes i systemet nå:");
 		
 		System.out.println("");
 		
-		while (rs_sports.next()) {
-            int ID = rs_sports.getInt("idrett_ID");
-            String sport = rs_sports.getString("navn");
-            System.out.println( "[" + ID + "]" + "\t" + sport);  
+		while (rs_exercise.next()) {
+            int ID = rs_exercise.getInt("ovelse_ID");
+            String ovelse = rs_exercise.getString("navn");
+            String description = rs_exercise.getString("beskrivelse");
+            System.out.println( "[" + ID + "]" + "\t" + ovelse + "\t" + description);  
 		}
 		System.out.println("-------------------------------------------------");
 		System.out.println("");
-		System.out.println("Ønsker du å legge til en ny idrett? [J/N]");
+		System.out.println("Ønsker du å legge til en ny øvelse? [J/N]");
 		
 		Scanner in1 = new Scanner(System.in);
 	    boolean temp = true;
@@ -35,30 +37,46 @@ public class RegisterExercise {
 		
 			if (i.toLowerCase().equals("j")) {
 				temp = false;
-				addSport();
+				addExercise();
 			}
 			else if(i.toLowerCase().equals("n")) {
 				temp = false;
 			}
 			else {
-				System.out.println("Skriv 'j' eller 'n' ");
+				System.out.println("Skriv 'J' eller 'N' ");
 			}
 		}
 	}
-	private void addSport() throws Exception {
+	private void addExercise() throws Exception {
 		
 		Scanner in2 = new Scanner(System.in);
 		
-	    String newSport = null;
-	    System.out.println("Vennligst skriv inn navnet på idretten du ønsker å legge til: ");
+	    String newExerciseName = null;
+	    int workoutType;
+	    String newDescription = null;
+		ResultSet workoutTypes = null;
+
+	    System.out.println("Vennligst skriv inn navnet på øvelsen du ønsker å legge til: ");
 	    System.out.println("");
 	    
-	    newSport = in2.nextLine();
-	    acc.addSport(newSport);
+	    newExerciseName = in2.nextLine();
 	    System.out.println("");
 	    
-	    System.out.println("Gratulerer! Du har lagt til idretten " + newSport);
+	    workoutTypes = acc.getWorkoutType();
+	    System.out.println("Her ser du treningstypene som finnes, velg den som passer til din nye øvelse:");
+	    
+		while (workoutTypes.next()) {
+            int ID = workoutTypes.getInt("treningstype_ID");
+            String workoutTypeName = workoutTypes.getString("navn");
+            System.out.println( "[" + ID + "]" + "\t" + workoutTypeName);  
+		}
+		workoutType = in2.nextInt();
+
+	    acc.addExercise(newExerciseName, newDescription, workoutType);
+
+	    System.out.println("Gratulerer! Du har lagt til øvelsen " + newExerciseName);
 	    System.out.println("");
+	    
 	}
 }
 	

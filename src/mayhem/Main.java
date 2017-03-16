@@ -4,14 +4,15 @@ import mayhem.PropertyHandling;
 import java.util.Scanner;
 import mayhem.RegisterTraining;
 import mayhem.Notes;
-import mayhem.RegisterSport;
+import mayhem.ScriptRunner;
+import java.sql.*;
+
 public class Main {
-	
-	
 
 	public static void main(String[] args) throws Exception {
-		PropertyHandling ph = new PropertyHandling();
-		ph.CreateDatabaseProperties();
+		//PropertyHandling ph = new PropertyHandling();
+		//ph.CreateDatabaseProperties();
+
 		boolean done = false;
 		while(!done){
 			System.out.println("Velg handling: \n");
@@ -19,11 +20,11 @@ public class Main {
 			System.out.println("[2] \t Se tidligere trening");
 			System.out.println("[3] \t Statistikk ");
 			System.out.println("[4] \t Notater");
-			System.out.println("[5] \t Se tidligere trening ");
+			System.out.println("[5] \t Oppdater mål ");
 			System.out.println("[6] \t Se / Legg til idrett ");
-			System.out.println("[7] \t Se / Legg til idrett ");
-			
-			System.out.println("[8] \t Avslutt");
+			System.out.println("[7] \t Se / Legg til øvelse ");
+			System.out.println("[8] \t Sett opp database");
+			System.out.println("[9] \t Avslutt");
 			
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
@@ -36,24 +37,34 @@ public class Main {
 					
 						break;
 				case 3: 
-						
+						Statistics stats = new Statistics();
+						stats.viewStats();
 						break;
 				case 4:	
 						Notes note = new Notes();
 						note.viewNotes();
 						break;
 				case 5: 
+						Goals goals = new Goals();
+						goals.updateGoal();
 						break;
 				case 6: 
 						RegisterSport regSport = new RegisterSport();
 						regSport.displaySports();
 						break;
-				case 7: done = true;
+				case 7: 
+						RegisterExercise regEx = new RegisterExercise();
+						regEx.displayExercises();
 						break;
-				case 8: done = true;
-				break;
+
+				case 8: 
+						MySQLAccess setup = new MySQLAccess();
+						setup.setupDatabase();
+				case 9:
+						done = true;
+						break;
 				default: 
-					System.out.println("Skriv inn tall fra 1-8");
+					System.out.println("Skriv inn tall fra 1-9");
 			}
 		}
 		
