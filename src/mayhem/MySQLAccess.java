@@ -43,7 +43,7 @@ public class MySQLAccess {
         public ResultSet getAllWorkouts() throws Exception {
             try {   
             	// Returns result from asking for the workout ID, date, sport and excercises for all workouts.
-            		String queryString = "SELECT trening.trening_ID, trenging.tid, trening.varighet, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
+            		String queryString = "SELECT trening.trening_ID, trening.tid, trening.varighet, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
             		queryString = queryString + "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
             		queryString = queryString + "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
             		queryString = queryString + "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
