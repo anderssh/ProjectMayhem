@@ -58,7 +58,7 @@ public class MySQLAccess {
         public ResultSet getWorkoutOnID(int trening_ID) throws Exception {
         	try {
             		String queryString = "SELECT trening.trening_ID FROM trening JOIN innetrening ON trening.trening_ID=innetrening.trening_ID";
-            		queryString = queryString + "WHERE innetrening.trening_ID=?";
+            		queryString = queryString + " WHERE innetrening.trening_ID=?";
             		PreparedStatement prepStat = null;
             		
 					prepStat = connect.prepareStatement(queryString);
