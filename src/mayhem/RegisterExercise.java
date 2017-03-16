@@ -35,7 +35,7 @@ public class RegisterExercise {
             arlString = arl.toString();
             String ovelse = rs_exercise.getString("navn");
             String description = rs_exercise.getString("beskrivelse");
-            System.out.println("ID \t Øvelse ID Øvelser som kan erstattes med \t beskrivelse");
+            System.out.println("ID \t Øvelse ID  kan erstattes med \t beskrivelse");
             System.out.format("[%d]  " +"%-30s%-10s%-50s", ID, ovelse, arlString, description);
             System.out.println("");
 		}
