@@ -1,8 +1,14 @@
 package mayhem;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Scanner;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import mayhem.PropertyHandling;
@@ -30,7 +36,8 @@ public class MySQLAccess {
             dataSource.setPassword(props.getProperty("dbpassword"));
             dataSource.setURL(props.getProperty("dbURL"));
             
-            connect = dataSource.getConnection();	
+            connect = dataSource.getConnection();
+        	
         }
         
         public ResultSet getAllWorkouts() throws Exception {
@@ -380,5 +387,50 @@ public class MySQLAccess {
         	prepStat.executeUpdate();
         	
         }
+        public void addGoal(int exercise_details_ID, String achieved, String note) throws Exception{
+        	PreparedStatement prepStat = null;
+        	String queryString = "INSERT INTO maal (ovelse_detaljer_ID, opnadd, notat) VALUES (?,?,?)";
+        	prepStat = connect.prepareStatement(queryString);
+        	prepStat.setInt(1, exercise_details_ID);
+        	prepStat.setString(2, achieved);
+        	prepStat.setString(3, note);
+        	prepStat.executeUpdate();
+        }
+        
+        public ResultSet getMaxForm() throws Exception{
+        	String stat = "Select * From trening Where personlig_form = (Select Max(personlig_form) From trening)";
+        	statement = connect.createStatement(); 
+        	    ResultSet s = null;
+        	     s = statement.executeQuery(stat);
+        	     return s;
 
+        	} 
+
+        public ResultSet getMaxPerformance() throws Exception{
+        	String stat = "Select * From trening Where prestasjon= (Select Max(prestasjon) From trening)";
+        	
+        	statement = connect.createStatement(); 
+        	    ResultSet s = null;
+        	     s = statement.executeQuery(stat);
+        	     return s;
+
+        	}
+	public void setupDatabase() throws FileNotFoundException, IOException, SQLException{
+		try {
+		    Class.forName("com.mysql.jdbc.Driver");
+		    connect = DriverManager.getConnection("jdbc:mysql://localhost/test1?autoReconnect=true&useSSL=false","root", "kukksnik");
+		} catch (ClassNotFoundException e) {
+		    System.err.println("Unable to get mysql driver: " + e);
+		} catch (SQLException e) {
+		    System.err.println("Unable to connect to server: " + e);
+		}
+		ScriptRunner runner = new ScriptRunner(connect, false, false);
+		String path1 ="C:\\Users\\vetle\\Downloads\\setupDB.sql";
+		String path2 ="C:\\Users\\vetle\\Downloads\\populate_database.sql";
+		String setup_database = path1.replace("\\", "/");
+		String populate_database = path2.replace("\\", "/");
+		//String file = "C:\\\Users\\\vetle\\\Downloads\\\setupDB.sql";
+		runner.runScript(new BufferedReader(new FileReader(setup_database)));
+		runner.runScript(new BufferedReader(new FileReader(populate_database)));
+	}
 }

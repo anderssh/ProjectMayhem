@@ -285,9 +285,11 @@ public class RegisterTraining {
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
-		acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
+		if(workout_ID != -1){
+			acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
+		}
 	}
-	public void registerNewExercise(int workout_ID) throws Exception{
+	public int registerNewExercise(int workout_ID) throws Exception{
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
 		System.out.println("Hva heter øvelsen?");
@@ -317,8 +319,12 @@ public class RegisterTraining {
 		ResultSet rs_exercise_details = acc.addExerciseDetails(load,set,rep,duration,new_exercise_ID);
 		rs_exercise_details.next();
 		int exercise_details_ID = (int) rs_exercise_details.getLong(1);
-		acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
-		System.out.println(new_exercise_name + " er registrert i treningen din.");
+		
+		if(workout_ID != -1){
+			acc.addWorkoutExerciseDetails(workout_ID, exercise_details_ID);
+			System.out.println(new_exercise_name + " er registrert i treningen din.");
+		}
+			return new_exercise_ID;
 	}
 }
 
