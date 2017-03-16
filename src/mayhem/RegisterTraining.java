@@ -71,10 +71,10 @@ public class RegisterTraining {
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
-			System.out.println("Id" + "\t" +  "Idrett" + "\t" +  "Inne/Ute" + "\t" + "Øvelse"+ "\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
-			System.out.println("-------------------------------------------");
+			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "Øvelse"+ "\t" + "Antall sett"+ "\t" + "Antall repetisjoner");
+			System.out.println("-------------------------------------------------------------------------------------------------------------");
 		    while (rs_workoutOnID.next()) {
-		    	String  outin	= rs_workoutOnID.getString("inneute");
+		    	String  outin	= rs_workoutOnID.getString("inneUte");
 	            String sport	= rs_workoutOnID.getString("idrett");
 	            String  exer	= rs_workoutOnID.getString("ovelse");
 	            int sets  	= rs_workoutOnID.getInt("antall_set");

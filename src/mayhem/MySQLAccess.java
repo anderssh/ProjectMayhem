@@ -54,20 +54,9 @@ public class MySQLAccess {
             }
         }
         
-<<<<<<< HEAD
 
-        public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
-        	try {
-        		String queryString = "SELECT trening.trening_ID, idrett.navn AS idrett, 'Innetrening' AS innetrening, ovelse.navn AS ovelse, ";
-        		queryString = "belastning_kg, antall_set, antall_repetisjoner, ovelse_detaljer.varighet AS ovelse_varighet, ventilasjon, antall_tilskuere  FROM trening ";
-        		queryString = "JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
-        		queryString = "JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
-        		queryString = "JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
-        		queryString = "JOIN idrett ON trening.idrett_ID=idrett.idrett_ID ";
-        		queryString = "JOIN innetrening ON trening.trening_ID=innetrening.trening_ID";
-        		queryString = queryString + " WHERE innetrening.trening_ID= ? ;";
-        		PreparedStatement prepStat = null;
-=======
+
+
         public ResultSet getInsideWorkoutOnID(int trening_ID) throws Exception {
         	try {
                 String queryString = "SELECT trening.trening_ID, idrett.navn AS idrett, 'Innetrening' AS innetrening, ovelse.navn AS ovelse, ";
@@ -79,7 +68,7 @@ public class MySQLAccess {
                 queryString = queryString + "JOIN innetrening ON trening.trening_ID=innetrening.trening_ID " ;
                 queryString = queryString + " WHERE innetrening.trening_ID= ? ;";
                 PreparedStatement prepStat = null;
->>>>>>> 0146a51c760bc69e156a5080a877b1e1c5fc9b42
+
 				
         		prepStat = connect.prepareStatement(queryString);
 				prepStat.setInt( 1, trening_ID);
