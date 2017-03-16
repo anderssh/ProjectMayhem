@@ -15,7 +15,7 @@ public class Workouts {
 		while(found_template == false){
 			System.out.println("Her er en liste over dine tidligere treninger:");
 			System.out.println("");
-			System.out.println("Id" + "\t" + "Dato" + "\t" +  "\t" + "Idrett"+ "\t" +  "\t" + "Tid" + "\t" +  "\t" +  "Varighet");
+			System.out.println(" Id" + "\t" + "Dato" + "\t" +  "\t" + "Idrett"+ "\t" +  "\t" + "Tid" + "\t" +  "Varighet");
 			System.out.println("-----------------------------------------------------------------------------------------------");
 			ResultSet rs_workouts = acc.getAllWorkouts();
 			int idprev = 0;
@@ -30,7 +30,7 @@ public class Workouts {
 	            	//System.out.println("\t" + "-" + exer );
 	            }else{
 	            	//System.out.println("");
-	            	System.out.println("[" + id + "]" + "\t" + date +  "\t" + sport+"\t" + time+"\t" + duration);
+	            	System.out.printf("%3d. %-20s %-10s %10s %10s  \n", id , date, sport, time,duration);
 	            	//System.out.println("\t" + "-" + exer );
 	            }
 	            idprev = id;
@@ -40,7 +40,7 @@ public class Workouts {
 		    Scanner in = new Scanner(System.in);
 			int id = in.nextInt();
 			ResultSet rs_workoutOnID = acc.getWorkoutOnID(id);
-			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "\t" + "Øvelse" + "\t" + "Antall sett"+ "\t" + "Antall reps"+ "\t" + "Belastning(kg)"+ "\t" + "Øvelsevarighet");
+			System.out.println("Id" + "\t" + "Inne/Ute" + "\t"+ "Idrett" + "\t" + "\t" + "Øvelse" + "\t" + "           Antall sett"+ "\t" + "       Antall reps"+ "\t" + "Belastning(kg)"+ "\t" + "       Øvelsevarighet");
 			System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
 		    int idprev1 = 0;
 			while (rs_workoutOnID.next()) {
@@ -53,9 +53,9 @@ public class Workouts {
 	            int load 	= rs_workoutOnID.getInt("belastning_kg");
 	            
 	            if (id == idprev1){
-	            	System.out.println("\t"  + "\t" + "\t"  + "\t" + "\t" + exer + "\t" + sets +"\t"+  reps +"\t"+ load+"\t"+ exerTime);
+	            	System.out.printf( "                                    %10s                      %3d              %3d            %3d             %10s \n",exer, sets ,reps,load,exerTime);
 	            }else{
-	            	System.out.println("[" + id + "]" + "\t" + outin + "\t" + sport + "\t" + exer + "\t" + sets +"\t"+ reps+"\t"+ load+"\t"+ exerTime );
+	            	System.out.printf("%3d. %-20s %-10s %10s                     %3d              %3d            %3d             %10s  \n", id ,outin, sport,exer,sets,reps,load,exerTime);
 	            }
 	            idprev1 = id;
 	            

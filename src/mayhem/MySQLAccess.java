@@ -45,7 +45,9 @@ public class MySQLAccess {
         public ResultSet getAllWorkouts() throws Exception {
             try {   
             	// Returns result from asking for the workout ID, date, sport and excercises for all workouts.
+
             		String queryString = "SELECT trening.trening_ID, trening.varighet, trening.tid, trening.dato AS dato, idrett.navn AS idrett, ovelse.navn AS ovelse FROM trening ";
+
             		queryString = queryString + "LEFT JOIN trening_ovelse_detaljer ON trening.trening_ID=trening_ovelse_detaljer.trening_ID ";
             		queryString = queryString + "LEFT JOIN ovelse_detaljer ON trening_ovelse_detaljer.ovelse_detaljer_ID=ovelse_detaljer.ovelse_detaljer_ID ";
             		queryString = queryString + "LEFT JOIN ovelse ON ovelse_detaljer.ovelse_ID=ovelse.ovelse_ID ";
@@ -329,7 +331,7 @@ public class MySQLAccess {
         }
         
         public ResultSet getAllExercises() throws Exception{
-        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, beskrivelse, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID;";
+        	String queryString = "SELECT ovelse_ID,ovelse.navn,treningstype.treningstype_ID, beskrivelse, treningstype.navn FROM ovelse JOIN treningstype ON ovelse.treningstype_ID=treningstype.treningstype_ID ORDER BY ovelse_ID;";
         	statement = connect.createStatement();                
                 ResultSet exercises = null;
                 exercises = statement.executeQuery(queryString);

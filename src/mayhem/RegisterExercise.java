@@ -23,7 +23,7 @@ public class RegisterExercise {
 		ResultSet result = null;
 		ArrayList<Integer> arl = new ArrayList<Integer>(); 
 		String arlString = null;
-		
+        System.out.println(" ID   Øvelse              Kan erstattes med       beskrivelse");
 		while (rs_exercise.next()) {
             int ID = rs_exercise.getInt("ovelse_ID");
             result = acc.getSimilarExerciseOnID(ID);
@@ -34,8 +34,7 @@ public class RegisterExercise {
             arlString = arl.toString();
             String ovelse = rs_exercise.getString("navn");
             String description = rs_exercise.getString("beskrivelse");
-            System.out.println("ID \t Øvelse ID  kan erstattes med \t beskrivelse");
-            System.out.format("[%d]  " +"%-30s%-10s%-50s", ID, ovelse, arlString, description);
+            System.out.format("[%2d]  " +"%-30s%-15s%-50s", ID, ovelse, arlString, description);
             System.out.println("");
 		}
 		System.out.println("-------------------------------------------------");
