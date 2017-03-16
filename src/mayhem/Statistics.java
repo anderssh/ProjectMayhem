@@ -31,10 +31,8 @@ public class Statistics {
 	public void viewStats() throws Exception{
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
-
 		System.out.println("Se hvilke treninger du hadde best form/prestasjon? ['f' eller 'p']");
 		Scanner in = new Scanner(System.in);
-		
 		boolean invalid = true;
 		while(invalid){
 			String i = in.nextLine();
@@ -72,7 +70,6 @@ public class Statistics {
 	public void viewMonthlyStats() throws Exception{
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
-		ResultSet rs_exercises = acc.getAllExercises();
 		System.out.println("Her ser du alle treningene dine i kronologisk rekkefølge");
 		
 		System.out.println("Id" + "\t" + "Dato" + "\t" +  "\t" + "Varighet");
@@ -100,7 +97,6 @@ public class Statistics {
 		}
 		 
 		System.out.println("Hvilken måned vil du se statistikk fra? [MM]");
-	    //Scanner in_date = new Scanner(System.in);
 		String chosen_month = in_date.nextLine();
 		System.out.println("Her er alle treningene for måned " + chosen_month + " i år " + chosen_year);
 		ResultSet rs_workouts_by_month = acc.getWorkoutsOnMonth(chosen_year,chosen_month);
@@ -132,7 +128,6 @@ public class Statistics {
 	public void viewYearlyStats() throws Exception{
 		MySQLAccess acc = new MySQLAccess();
 		acc.makeConnection();
-		ResultSet rs_exercises = acc.getAllExercises();
 		System.out.println("Her ser du alle treningene dine i kronologisk rekkefølge");
 		
 		System.out.println("Id" + "\t" + "Dato" + "\t" +  "\t" + "Varighet");

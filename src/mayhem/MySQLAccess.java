@@ -11,7 +11,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-import mayhem.PropertyHandling;
+//import mayhem.PropertyHandling;
 
 @SuppressWarnings("unused")
 public class MySQLAccess {
@@ -23,20 +23,22 @@ public class MySQLAccess {
         public void makeConnection() throws Exception {
         	
         	//Load properties
-    		PropertyHandling propHandling = new PropertyHandling();
-    		props = propHandling.LoadDatabaseProperies();
+    		//PropertyHandling propHandling = new PropertyHandling();
+    	//	props = propHandling.LoadDatabaseProperies();
     	
             // This will load the MySQL driver, each DB has its own driver
-            Class.forName(props.getProperty("dbdriver"));
+          //  Class.forName(props.getProperty("dbdriver"));
             
             // Setup the connection with the DB
             MysqlDataSource dataSource = new MysqlDataSource();
             
-            dataSource.setUser(props.getProperty("dbuser"));
-            dataSource.setPassword(props.getProperty("dbpassword"));
-            dataSource.setURL(props.getProperty("dbURL"));
-            
-            connect = dataSource.getConnection();
+//            dataSource.setUser(props.getProperty("dbuser"));
+//            dataSource.setPassword(props.getProperty("dbpassword"));
+//            dataSource.setURL(props.getProperty("dbURL"));
+          dataSource.setUser("root");
+          dataSource.setPassword("root");
+          dataSource.setURL("jdbc:mysql://localhost/Prosjektet?autoReconnect=true&useSSL=false");
+          connect = dataSource.getConnection();
         	
         }
         
